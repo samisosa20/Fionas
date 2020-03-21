@@ -25,3 +25,28 @@ function log_in(){
         }
     });
 };
+$("#btn_signup").click(function(){
+    sign_up();
+});
+function sign_up(){
+    var name = document.getElementById("name").value;
+    var lastname = document.getElementById("lastname").value;
+    var email = document.getElementById("email").value;
+    var pass = document.getElementById("pass").value;
+    $.ajax('conexions/registrar.php', {
+        type: 'POST',  // http method
+        data: { name: name,
+            lastname: lastname,
+            email: email,
+            pass: pass},  // data to submit
+        success: function (data, status, xhr) {
+            //console.log('status: ' + status + ', data: ' + data);
+            if (data == 200) {
+                window.location="/";
+            } else {
+                alert("Error: No se pudo registrar correctamente!. (" + 
+                data + ")");
+            }
+        }
+    });  
+};
