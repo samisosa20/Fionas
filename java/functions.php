@@ -41,6 +41,7 @@ if (document.getElementById("ModalCategora")) {
 							sub = 0;
 						}
 						load_data(sub, idu);
+						PostCategoria("consult_cate.php");
 					} else {
 						alert("Error: " + data);
 					}
@@ -149,28 +150,35 @@ if (document.getElementById("ModalAccount")) {
 		var nombre = document.getElementById("nombre").value;
 		var descripcion = document.getElementById("descripcion").value;
 		var divisa = document.getElementById("divisa").value;
-		if (nombre == "" || divisa == 0) {
+		var monto_ini = document.getElementById("monto_ini").value;
+		if (nombre == "" || divisa == 0 || monto_ini == "") {
 			if (nombre == ""){
 				document.getElementById("nombre").className = "form-control custom-radius custom-shadow border-0 is-invalid";
 			}
 			if (divisa == 0) {
 				document.getElementById("divisa").className = "custom-select mr-sm-2 custom-radius custom-shadow border-0 is-invalid";
 			}
+			if (monto_ini == ""){
+				document.getElementById("monto_ini").className = "form-control custom-radius custom-shadow border-0 is-invalid";
+			}
 		} else {
 			$.ajax('../conexions/add_account.php', {
 				type: 'POST',  // http method
 				data: { nombre: nombre,
 				descripcion: descripcion,
-				divisa: divisa },  // data to submit
+				divisa: divisa,
+				monto_ini: monto_ini },  // data to submit
 				success: function (data, status, xhr) {
 					//console.log('status: ' + status + ', data: ' + data);
 					if (data == 200) {
 						$('#ModalAccount').modal('hide');
 						document.getElementById("nombre").className = "form-control custom-radius custom-shadow border-0";
 						document.getElementById("divisa").className = "custom-select mr-sm-2 custom-radius custom-shadow border-0";
+						document.getElementById("monto_ini").className = "form-control custom-radius custom-shadow border-0";
 						document.getElementById("nombre").value = "";
 						document.getElementById("descripcion").value = "";
 						document.getElementById("divisa").value = 0;
+						document.getElementById("monto_ini").value = 0;
 						var url = window.location.href;
 						var div = url.split("#");
 						var sub = div[1];
@@ -488,4 +496,91 @@ if (document.getElementById("table_move_acc")){
 			});
 		}
 	});
+};
+
+if (document.getElementById("body_profile")){
+	var idu = <?php echo $id_user; ?>;
+	PostProfile("consult_profile.php?action=1", 1);
+	PostProfile("consult_profile.php?action=2", 2);
+	PostProfile("consult_profile.php?action=3", 3);
+	function PostProfile(strURLop, action) {
+		var xmlHttp;
+		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+			var xmlHttp = new XMLHttpRequest();
+		}else if (window.ActiveXObject) { // IE
+			var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlHttp.open('POST', strURLop, true);
+		xmlHttp.setRequestHeader
+			('Content-Type', 'application/x-www-form-urlencoded');
+		xmlHttp.onreadystatechange = function() {
+			if (xmlHttp.readyState == 4) {
+				UpdatePage(xmlHttp.responseText, action);
+			}
+		}
+		xmlHttp.send(strURLop);
+	}
+	function UpdatePage(str, action){
+		if (action == 1){
+			document.getElementById("name_profile").value = str ;
+		}else if (action == 2){
+			document.getElementById("last_name_profile").value = str ;
+		}else if (action == 3){
+			document.getElementById("email_profile").value = str ;
+		}
+	}
+	$("#save_profile").click(function(){
+		var name = document.getElementById("name_profile").value;
+		var last_name = document.getElementById("last_name_profile").value;
+		var passw1 = document.getElementById("pass_1").value;
+		var passw2 = document.getElementById("pass_2").value;
+		if (name == "" || passw1 != passw2 || (passw1.length < 6 && passw1.length >0)) {
+			if (name == ""){
+				document.getElementById("name_profile").className = "form-control is-invalid";
+			}
+			if (passw1 != passw2){
+				document.getElementById("pass_2").className = "form-control is-invalid";
+			}
+			if (passw1.length < 6 && passw1.length >0){
+				document.getElementById("pass_1").className = "form-control is-invalid";
+			}
+		} else {
+			$.ajax('../conexions/edit_profile.php', {
+				type: 'POST',
+				data: {
+					name: name,
+					last_name: last_name,
+					passw: passw2
+				},
+				success: function (data, status, xhr) {
+					console.log('status: ' + status + ', data: ' + data);
+					if (data == 200) {
+						document.getElementById("pass_1").value = "";
+						document.getElementById("pass_2").value = "";
+					} else {
+						alert("Error: " + data);
+					}
+				}
+			});
+		}
+	});
+
+	function val_pass_1() {
+		var pass = document.getElementById("pass_1").value;
+		if (pass.length < 6) {
+			document.getElementById("pass_1").className = "form-control is-invalid";
+		} else {
+			document.getElementById("pass_1").className = "form-control is-valid";
+		}
+	};
+
+	function val_pass_2() {
+		var pass2 = document.getElementById("pass_2").value;
+		var pass1 = document.getElementById("pass_1").value;
+		if (pass1 != pass2) {
+			document.getElementById("pass_2").className = "form-control is-invalid";
+		} else {
+			document.getElementById("pass_2").className = "form-control is-valid";
+		}
+	};
 };
