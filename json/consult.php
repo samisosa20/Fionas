@@ -29,7 +29,8 @@ function list_account(){
     } else {
         $id_user = $_GET['idu'];
         $lvl = $_GET['lvl'];
-        $strsql = "SELECT a.id, nombre, IF(SUM(valor) IS NULL, 0, SUM(valor)) AS cantidad, a.divisa FROM fionadb.cuentas AS a 
+        $strsql = "SELECT a.id, nombre, FORMAT(IF(SUM(valor) IS NULL, 0, SUM(valor)) + monto_inicial, 2)
+        AS cantidad, a.divisa FROM fionadb.cuentas AS a 
         LEFT JOIN fionadb.movimientos AS b ON (a.id = cuenta and a.id_user = b.id_user)
         WHERE a.id_user='$id_user' GROUP BY nombre, b.divisa";
         $rs = mysqli_query($conn, $strsql);
