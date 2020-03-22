@@ -8,6 +8,7 @@ $last_name = $_SESSION["last_name"];
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
+        <script type="text/javascript" src="../java/cssrefresh.js"></script>
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md">
                 <div class="navbar-header" data-logobg="skin6">
