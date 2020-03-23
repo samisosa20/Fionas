@@ -151,7 +151,7 @@
 									<button class="btn btn-outline-success" id="monto_signal" value="+" type="button">+</button>
 								</div>
 								<div class="custom-file">
-									<input type="number" step="0.02" min="0" onchange="signo()" class="form-control" id="valor">
+									<input type="number" step="0.02" min="0" onchange="signo('valor', 'monto_signal')" class="form-control" id="valor">
 								</div>
 								<div class="col-md-3">
 									<select id="divisa"
@@ -186,6 +186,92 @@
 							<button type="button" class="btn btn-light"
 								data-dismiss="modal">Cerrar</button>
 							<button type="button" id="save_trans" class="btn btn-primary">Guardar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<div id="ModalEdit" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Editor de movimiento</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
+						<div class="modal-body">
+							<div class="input-group">
+								<div class="col-md-2">
+									<small class="text-dark">Monto</small>
+								</div>
+								<div class="input-group-prepend">
+									<button class="btn btn-outline-success" id="edit_monto_signal" value="+" type="button">+</button>
+								</div>
+								<div class="custom-file">
+									<input type="number" step="0.02" min="0" onchange="signo('edit_valor', 'edit_monto_signal')" class="form-control" id="edit_valor">
+								</div>
+								<div class="col-md-3">
+									<select id="edit_divisa"
+                                        class="custom-select form-control bg-white custom-radius custom-shadow border-0">
+                                        <option selected>COP</option>
+                                        <option >USD</option>
+                                    </select>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+								<div class="form-group mb-4">
+									<label class="mr-sm-2" for="edit_cuenta">Seleciona una cuenta</label>
+									<select class="custom-select mr-sm-2 custom-radius custom-shadow border-0"
+									id="edit_cuenta">
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+								<div class="form-group mb-4"> 
+									<label class="mr-sm-2" for="edit_categoria">Seleciona una categoria</label>
+									<select class="custom-select mr-sm-2 custom-radius custom-shadow border-0"
+									id="edit_categoria">
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+								<div class="form-group mb-4">
+									<label class="mr-sm-2" for="edit_descripcion">Descripción</label>
+									<textarea class="form-control" id="edit_descripcion" rows="3" placeholder="Escribe aqui una descripción..."></textarea>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+								<div class="form-group mb-4">
+									<label class="mr-sm-2" for="edit_fecha">Fecha</label>
+									<input type="datetime-local" 
+									class="form-control custom-radius custom-shadow border-0" id="edit_fecha">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light"
+								data-dismiss="modal">Cerrar</button>
+							<button type="button" id="edit_trans" class="btn btn-primary">Guardar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<div id="ModalDelete" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Eliminar movimiento</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
+						<div id="text_delete" class="modal-body">
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light"
+								data-dismiss="modal">Cancelar</button>
+							<button type="button" id="delete_trans" class="btn btn-danger">Eliminar</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
