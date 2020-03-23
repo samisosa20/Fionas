@@ -14,7 +14,7 @@
     ";
     $save = mysqli_query($conn, $insert);
     if(!$save){ 
-        echo $insert;
+        echo 400;
     } else {
         echo 200;
     }
