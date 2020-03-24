@@ -53,7 +53,7 @@ function movimientos(){
         $id_user = $_GET['idu'];
         $lvl = $_GET['lvl'];
         $strsql = "SELECT a.id, a.categoria AS nro_cate, b.categoria, valor AS valor_int, FORMAT(valor,2) AS valor, divisa, fecha, DAY(fecha) AS dia, MONTH(fecha) AS mes,
-        YEAR(fecha) AS ano, a.descripcion FROM fionadb.movimientos AS a JOIN fionadb.categorias AS b ON
+        YEAR(fecha) AS ano, a.descripcion, a.id_transfe FROM fionadb.movimientos AS a JOIN fionadb.categorias AS b ON
         (a.id_user = b.id_user and b.id = a.categoria) WHERE cuenta=$lvl and a.id_user='$id_user'";
         $rs = mysqli_query($conn, $strsql);
         $total_rows = $rs->num_rows;
@@ -74,7 +74,7 @@ function consolidado(){
     } else {
         $id_user = $_GET['idu'];
         $strsql = "SELECT SUM(IF(valor > 0, valor, 0)) AS ingreso, SUM(IF(valor < 0, valor, 0)) 
-        AS Egresos, SUM(valor) AS utilidad FROM fionadb.movimientos WHERE id_user='$id_user'";
+        AS Egresos, SUM(valor) AS utilidad, FORMAT(SUM(valor),2) AS utilidad_bal FROM fionadb.movimientos WHERE id_user='$id_user'";
         $rs = mysqli_query($conn, $strsql);
         $total_rows = $rs->num_rows;
         if ($total_rows > 0 ) {
