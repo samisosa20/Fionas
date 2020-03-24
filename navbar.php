@@ -8,7 +8,6 @@ $last_name = $_SESSION["last_name"];
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <script type="text/javascript" src="../java/cssrefresh.js"></script>
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md">
                 <div class="navbar-header" data-logobg="skin6">
@@ -194,9 +193,7 @@ $last_name = $_SESSION["last_name"];
                                 <a class="dropdown-item" href="/pages/profile.php"><i data-feather="user"
                                         class="svg-icon mr-2 ml-1"></i>
                                     My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                    My Balance</a>
+                                <a class="dropdown-item row" style ="margin: 0px;" id="balance"></a>
                                 <!--<a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
                                         class="svg-icon mr-2 ml-1"></i>
                                     Inbox</a>
