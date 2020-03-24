@@ -318,8 +318,14 @@ if (document.getElementById("table_move_acc")){
 							var divisa = '"' + full.divisa + '"';
 							var nro_cate = full.nro_cate;
 							var valor_int = full.valor_int;
-							return "<i class='fas fa-edit mr-3' style='color: #20c997;' onclick='edit_trans("+id+","+nro_cate+","+valor_int+","+fecha+","+descripcion+","+divisa+","+sub+")'></i>"+
-							"<i class='fas fa-trash-alt' style='color: red;' onclick='delete_trans("+id+","+categoria+","+valor+","+fecha+")'></i>";
+							var id_transfer = full.id_transfe;
+							if (full.categoria != "Transferencia"){
+								return "<i class='fas fa-edit mr-3' style='color: #20c997;' onclick='edit_trans("+id+","+nro_cate+","+valor_int+","+fecha+","+descripcion+","+divisa+","+sub+")'></i>"+
+								"<i class='fas fa-trash-alt' style='color: red;' onclick='delete_trans("+id+","+categoria+","+valor+","+fecha+")'></i>";
+							} else {
+								return "<i class='fas fa-edit mr-3' style='color: #20c997;' onclick='edit_movi("+id+","+id_transfer+","+valor_int+","+fecha+","+descripcion+","+divisa+","+sub+")'></i>"+ 
+								"<i class='fas fa-trash-alt' style='color: red;' onclick='delete_trans("+id+","+categoria+","+valor+","+fecha+")'></i>";
+							}
 							}
 						},
 						{data: 'categoria'},
@@ -412,7 +418,7 @@ if (document.getElementById("table_move_acc")){
 	function UpdateTitle(str){
 		document.getElementById("title_movi").innerHTML = str ;
 	}
-	function PostCuentas(strURLop) {
+	function PostCuentas(strURLop, div) {
 		var xmlHttp;
 		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
 			var xmlHttp = new XMLHttpRequest();
@@ -424,13 +430,13 @@ if (document.getElementById("table_move_acc")){
 			('Content-Type', 'application/x-www-form-urlencoded');
 		xmlHttp.onreadystatechange = function() {
 			if (xmlHttp.readyState == 4) {
-				UpdateCuentas(xmlHttp.responseText);
+				UpdateCuentas(xmlHttp.responseText, div);
 			}
 		}
 		xmlHttp.send(strURLop);
 	}
-	function UpdateCuentas(str){
-		document.getElementById("edit_cuenta").innerHTML = str ;
+	function UpdateCuentas(str, div){
+		document.getElementById(div).innerHTML = str ;
 	}
 	function PostDescAcc(strURLop) {
 		var xmlHttp;
@@ -476,6 +482,18 @@ if (document.getElementById("table_move_acc")){
 		document.getElementById("fecha").value = formattedDateTime;
 	});
 	$("#monto_signal").click(function(){
+		var signal = document.getElementById("monto_signal");
+		if (signal.value == "+"){
+			signal.innerHTML = "-";
+			signal.value = "-";
+			signal.className = "btn btn-outline-danger";
+		} else {
+			signal.innerHTML = "+";
+			signal.value = "+";
+			signal.className = "btn btn-outline-success";
+		}
+	});
+	$("#trans_monto_signal").click(function(){
 		var signal = document.getElementById("monto_signal");
 		if (signal.value == "+"){
 			signal.innerHTML = "-";
@@ -581,7 +599,7 @@ if (document.getElementById("table_move_acc")){
 	};
 	function edit_trans(id, categoria, valor, fecha, descripcion, divisa, acco){
 		PostCategoriaEdit("consult_cate.php?act="+categoria);
-		PostCuentas("consult_accont.php?act="+acco);
+		PostCuentas("consult_accont.php?act="+acco, "edit_cuenta");
 		document.getElementById("edit_valor").value = valor;
 		document.getElementById("edit_divisa").value = divisa;
 		document.getElementById("edit_descripcion").value = descripcion;
@@ -589,7 +607,7 @@ if (document.getElementById("table_move_acc")){
 		var fecha2 = div[0] + 'T' + div[1];
 		document.getElementById("edit_fecha").value = fecha2;
 		$('#ModalEdit').modal('show');
-		$('#edit_trans').click(function(){
+		$('#edit_trans').unbind('click').click(function(){
 			valor = document.getElementById("edit_valor").value;
 			divisa = document.getElementById("edit_divisa").value;
 			descripcion = document.getElementById("edit_descripcion").value;
@@ -624,6 +642,183 @@ if (document.getElementById("table_move_acc")){
 			});
 		});
 	};
+	function edit_movi(id, id_transfer, valor, fecha, descripcion, divisa, acco){
+		if (valor < 0){
+			PostCuentas("consult_accont.php?act="+acco, "Edit_trans_cuenta_ini");
+			PostCuentas("consult_accont.php?act="+id_transfer, "Edit_trans_cuenta_fin");
+		} else {
+			PostCuentas("consult_accont.php?act="+acco, "Edit_trans_cuenta_fin");
+			PostCuentas("consult_accont.php?act="+id_transfer, "Edit_trans_cuenta_ini");
+		}
+		if (valor < 0){
+			document.getElementById("Edit_trans_valor").value = valor * -1;
+		} else {
+			document.getElementById("Edit_trans_valor").value = valor;
+		}
+		
+		document.getElementById("Edit_trans_divisa").value = divisa;
+		document.getElementById("Edit_trans_descripcion").value = descripcion;
+		var div = fecha.split(" ");
+		var fecha2 = div[0] + 'T' + div[1];
+		document.getElementById("Edit_trans_fecha").value = fecha2;
+		$('#ModalTransEdit').modal('show');
+		$('#Edit_trans_trans').unbind('click').click(function(){
+			valor = document.getElementById("Edit_trans_valor").value;
+			divisa = document.getElementById("Edit_trans_divisa").value;
+			descripcion = document.getElementById("Edit_trans_descripcion").value;
+			fecha = document.getElementById("Edit_trans_fecha").value;
+			cuenta_ini = document.getElementById("Edit_trans_cuenta_ini").value;
+			var cuenta_fin = document.getElementById("Edit_trans_cuenta_fin").value;
+			$.ajax({
+				url: '../conexions/edit_trans_acco.php', 
+				type: 'POST',
+				data: {
+					id: id,
+					valor: valor,
+					divisa: divisa,
+					descripcion: descripcion,
+					fecha: fecha,
+					cuenta_fin: cuenta_fin,
+					cuenta_ini: cuenta_ini
+				},
+				success: function(data){
+					if (data == 400) {
+						alert ("Los datos no se guardaron correctamente.");
+					}
+					$('#ModalTransEdit').modal('hide');
+					$('#table_move_acc').dataTable().fnDestroy();
+					rellenar_table_move_acc();
+				}
+			});
+		});
+	};
+	$('#add_trans_btn').click(function(){
+		PostCuentas("consult_accont.php", "trans_cuenta_ini");
+		PostCuentas("consult_accont.php", "trans_cuenta_fin");
+		var now = new Date($.now())
+			, year
+			, month
+			, date
+			, hours
+			, minutes
+			, seconds
+			, formattedDateTime
+			;
+
+		year = now.getFullYear();
+		month = now.getMonth().toString().length === 1 ? '0' + (now.getMonth() + 1).toString() : now.getMonth() + 1;
+		date = now.getDate().toString().length === 1 ? '0' + (now.getDate()).toString() : now.getDate();
+		hours = now.getHours().toString().length === 1 ? '0' + now.getHours().toString() : now.getHours();
+		minutes = now.getMinutes().toString().length === 1 ? '0' + now.getMinutes().toString() : now.getMinutes();
+		seconds = now.getSeconds().toString().length === 1 ? '0' + now.getSeconds().toString() : now.getSeconds();
+
+		formattedDateTime = year + '-' + month + '-' + date + 'T' + hours + ':' + minutes + ':' + seconds;
+
+		document.getElementById("trans_fecha").value = formattedDateTime;
+
+	});
+	$('#add_trans_btn').click(function(){
+		var url = window.location.href;
+		var div = url.split("=");
+		var sub = div[1];
+		PostCuentas("consult_accont.php", "trans_cuenta_fin");
+		PostCuentas('consult_accont.php?act='+sub, "trans_cuenta_ini");
+		var now = new Date($.now())
+			, year
+			, month
+			, date
+			, hours
+			, minutes
+			, seconds
+			, formattedDateTime
+			;
+
+		year = now.getFullYear();
+		month = now.getMonth().toString().length === 1 ? '0' + (now.getMonth() + 1).toString() : now.getMonth() + 1;
+		date = now.getDate().toString().length === 1 ? '0' + (now.getDate()).toString() : now.getDate();
+		hours = now.getHours().toString().length === 1 ? '0' + now.getHours().toString() : now.getHours();
+		minutes = now.getMinutes().toString().length === 1 ? '0' + now.getMinutes().toString() : now.getMinutes();
+		seconds = now.getSeconds().toString().length === 1 ? '0' + now.getSeconds().toString() : now.getSeconds();
+
+		formattedDateTime = year + '-' + month + '-' + date + 'T' + hours + ':' + minutes + ':' + seconds;
+
+		document.getElementById("trans_fecha").value = formattedDateTime;
+	});
+    $("trans_monto_signal").click(function(){
+		var signal = document.getElementById("dash_trans_monto_signal");
+		if (signal.value == "+"){
+			signal.innerHTML = "-";
+			signal.value = "-";
+			signal.className = "btn btn-outline-danger";
+		} else {
+			signal.innerHTML = "+";
+			signal.value = "+";
+			signal.className = "btn btn-outline-success";
+		}
+	});
+    $("#trans_trans").click(function(){
+		var monto_signal = document.getElementById("trans_monto_signal").value;
+		var valor = document.getElementById("trans_valor").value;
+        var cuenta_ini = document.getElementById("trans_cuenta_ini").value;
+		var divisa = document.getElementById("trans_divisa").value;
+		var cuenta_fin = document.getElementById("trans_cuenta_fin").value;
+		var descripcion = document.getElementById("trans_descripcion").value;
+		var fecha = document.getElementById("trans_fecha").value;
+		if (monto_signal == '-'){
+			valor = valor * -1;
+		}
+		if (valor == "" || valor == 0 || divisa == "" || cuenta_ini == 0 || cuenta_fin == 0 || fecha == "") {
+			if (valor == "" || valor == 0){
+				document.getElementById("trans_valor").className = "form-control is-invalid";
+			}
+			if (divisa == "") {
+				document.getElementById("trans_divisa").className = "custom-select form-control bg-white custom-radius custom-shadow border-0 is-invalid";
+			}
+			if (cuenta_fin == 0) {
+				document.getElementById("trans_cuenta_fin").className = "custom-select mr-sm-2 custom-radius custom-shadow border-0 is-invalid";
+			}
+            if (cuenta_ini == 0) {
+				document.getElementById("trans_cuenta_ini").className = "custom-select mr-sm-2 custom-radius custom-shadow border-0 is-invalid";
+			}
+			if (fecha == "") {
+				document.getElementById("trans_fecha").className = "form-control custom-radius custom-shadow border-0 is-invalid";
+			}
+		} else {
+			$.ajax('../conexions/add_movi_cuenta.php', {
+				type: 'POST',
+				data: {
+					cuenta_ini: cuenta_ini,
+					valor: valor,
+					divisa: divisa,
+					cuenta_fin: cuenta_fin,
+					descripcion: descripcion,
+					fecha: fecha
+				},
+				success: function (data, status, xhr) {
+					console.log('status: ' + status + ', data: ' + data);
+					if (data == 200) {
+						$('#ModalTransDash').modal('hide');
+						document.getElementById("trans_valor").className = "form-control";
+						document.getElementById("trans_divisa").className = "custom-select form-control bg-white custom-radius custom-shadow border-0";
+						document.getElementById("trans_cuenta_fin").className = "custom-select mr-sm-2 custom-radius custom-shadow border-0";
+                        document.getElementById("trans_cuenta_ini").className = "custom-select mr-sm-2 custom-radius custom-shadow border-0";
+						document.getElementById("trans_fecha").className = "form-control custom-radius custom-shadow border-0";
+						document.getElementById("trans_valor").value = "";
+						document.getElementById("trans_monto_signal").value = "+";
+						document.getElementById("trans_monto_signal").innerHTML = "+";
+						document.getElementById("trans_divisa").value = "COP";
+						document.getElementById("trans_descripcion").value = "";
+                        document.getElementById("trans_cuenta_ini").value = 0;
+						document.getElementById("trans_cuenta_fin").value = 0;
+						$('#table_move_acc').dataTable().fnDestroy();
+						rellenar_table_move_acc();
+					} else {
+						alert("Error: " + data);
+					}
+				}
+			});
+		}
+	});
 };
 
 if (document.getElementById("body_profile")){
@@ -712,3 +907,24 @@ if (document.getElementById("body_profile")){
 		}
 	};
 };
+
+var idu = <?php echo $id_user;?>;
+$.ajax({
+	type: "GET",
+	url: '../json/consult.php?action=4&idu='+idu, 
+	dataType: "json",
+	success: function(data){
+		document.getElementById("balance").innerHTML = "";
+		$.each(data,function(key, registro) {
+			var utilidad_bal = registro.utilidad_bal;
+			$("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
+                    "My Balance <p class='float-right'>" + utilidad_bal + "</p>");
+		});   
+	},
+	error: function(data) {
+		$.each(data,function(key, registro) {
+			$("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
+                    "My Balance <p class='float-right'>0.00</p>");
+		});  
+	}
+});
