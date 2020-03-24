@@ -4,7 +4,12 @@ $id_user = $_SESSION["Id_user"];
 include_once("../conexions/connect.php");
 $insert = "SELECT * FROM fionadb.cuentas WHERE id_user='$id_user'";
 $ejecutar =mysqli_query( $conn,$insert);
-$select = $_GET["act"];
+if (!$_GET["act"]){
+    echo "<option value='0' selected>Selecciona una opción</option>";
+    $select = 0;
+} else{
+    $select = $_GET["act"];
+}
 while ($lista = mysqli_fetch_array($ejecutar)){
     $id = $lista["id"];
     $nombre = $lista ["nombre"];
