@@ -15,10 +15,12 @@ function load_data(){
             document.getElementById("lbl_ingreso").innerHTML = "";
             document.getElementById("lbl_egreso").innerHTML = "";
             document.getElementById("lbl_utilidad").innerHTML = "";
+            document.getElementById("balance").innerHTML = "";
             $.each(data,function(key, registro) {
                 var ingreso = registro.ingreso;
                 var egreso = registro.Egresos;
                 var utilidad = registro.utilidad;
+                var utilidad_bal = registro.utilidad_bal;
                 if (!ingreso) {
                     ingreso = 0 + ' K';
                 }
@@ -53,14 +55,17 @@ function load_data(){
                     "class='set-doller'>$</sup>"+egreso+"</h2>");
                 $("#lbl_utilidad").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
                     "class='set-doller'>$</sup>"+utilidad+"</h2>");
+                $("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
+                                "My Balance <p class='float-right'>" + utilidad_bal + "</p>");
             });   
         },
         error: function(data) {
-            console.log(data);
             $.each(data,function(key, registro) {
                 $("#lbl_ingreso").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
                 $("#lbl_egreso").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
                 $("#lbl_utilidad").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
+                $("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
+                                "My Balance <p class='float-right'>0.00</p>");
             });  
         }
     });
@@ -423,14 +428,14 @@ function view_chart(){
         url: '../json/grafica.php?action=2&idu='+ idu, 
         dataType: "json",
         success: function(data){
-            console.log(data);
+            //console.log(data);
             var data2 = {};
             var value = [];
             JSON.parse(JSON.stringify(data)).forEach(function(d) {
                 data2[d.categoria] = d.cantidad;
                 value.push(d.categoria);
             });
-            console.log(data2);
+            //console.log(data2);
             var chart1 = c3.generate({
             bindto: '#campaign-v3',
             data: {
