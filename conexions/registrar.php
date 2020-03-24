@@ -9,8 +9,13 @@
     (name, last_name, email, password, id_user)
     VALUES('$name', '$lastname', '$email', '$pass', '$id_user');      
     ";
+    $insert_cat = "INSERT INTO fionadb.categorias
+    (categoria, sub_categoria, grupo, descripcion, id_user)
+    VALUES('Transferencia', '0', '5', 'Transferencia de una cuenta a otra', '$id_user');
+    ;";
     $save = mysqli_query($conn, $insert);
-    if(!$save){ 
+    $save_cat = mysqli_query($conn, $insert_cat);
+    if(!$save || !$save_cat){ 
         echo 400;
     } else {
         echo 200;
