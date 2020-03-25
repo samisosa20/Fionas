@@ -4,7 +4,7 @@ $id_user = "\"".$_SESSION["Id_user"]."\"";
 ?>
 if (document.getElementById("ModalCategora")) {
 	var idu = <?php echo $id_user; ?>;
-	PostCategoria("consult_cate.php");
+	PostCategoria_cat("consult_cate.php");
 	$("#save_cate").click(function(){
 		var nombre = document.getElementById("nombre").value;
 		var descripcion = document.getElementById("descripcion").value;
@@ -40,8 +40,8 @@ if (document.getElementById("ModalCategora")) {
 						if (!sub){
 							sub = 0;
 						}
-						load_data(sub, idu);
-						PostCategoria("consult_cate.php");
+						load_data_cat(sub, idu);
+						PostCategoria_cat("consult_cate.php");
 					} else {
 						alert("Error: " + data);
 					}
@@ -49,7 +49,7 @@ if (document.getElementById("ModalCategora")) {
 			});
 		}
 	});
-	function PostCategoria(strURLop) {
+	function PostCategoria_cat(strURLop) {
 		var xmlHttp;
 		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
 			var xmlHttp = new XMLHttpRequest();
@@ -61,15 +61,15 @@ if (document.getElementById("ModalCategora")) {
 			('Content-Type', 'application/x-www-form-urlencoded');
 		xmlHttp.onreadystatechange = function() {
 			if (xmlHttp.readyState == 4) {
-				UpdatePage(xmlHttp.responseText);
+				UpdatePageCate(xmlHttp.responseText);
 			}
 		}
 		xmlHttp.send(strURLop);
 	}
-	function UpdatePage(str){
+	function UpdatePageCate(str){
 		document.getElementById("categoria").innerHTML = str ;
 	}
-	function load_data(lvl, idu){
+	function load_data_cat(lvl, idu){
 		document.getElementById("card_catego").innerHTML = "";
 		if (lvl != 0) {
 				$("#card_catego").append("<div class='col-md-6'>"+
@@ -127,7 +127,7 @@ if (document.getElementById("ModalCategora")) {
 		});
 	};
 	var aux = 0;
-	load_data(0, idu);
+	load_data_cat(0, idu);
 	setInterval(function(){
 		var url = window.location.href;
 		var div = url.split("#");
@@ -138,7 +138,7 @@ if (document.getElementById("ModalCategora")) {
 		if (sub != aux){
 			var idu = <?php echo $id_user; ?>;
 			aux = sub;
-			load_data(sub, idu);
+			load_data_cat(sub, idu);
 		}
 	}, 1000);
 };
