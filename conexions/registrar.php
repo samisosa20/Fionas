@@ -4,10 +4,11 @@
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
     $pass = $_POST["pass"];
+    $hash = Password::hash($pass);
     $id_user=generateRandomString(5);
     $insert = "INSERT INTO fionadb.users
     (name, last_name, email, password, id_user)
-    VALUES('$name', '$lastname', '$email', '$pass', '$id_user');      
+    VALUES('$name', '$lastname', '$email', '$hash', '$id_user');      
     ";
     $insert_cat = "INSERT INTO fionadb.categorias
     (categoria, sub_categoria, grupo, descripcion, id_user)
