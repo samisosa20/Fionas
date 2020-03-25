@@ -55,8 +55,13 @@ function load_data(){
                     "class='set-doller'>$</sup>"+egreso+"</h2>");
                 $("#lbl_utilidad").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
                     "class='set-doller'>$</sup>"+utilidad+"</h2>");
-                $("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
+                if (!utilidad_bal){
+                    $("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
+                                "My Balance <p class='float-right'>0.00</p>");
+                } else {
+                    $("#balance").append("<i class='fas fa-credit-card mr-2 ml-1'></i>"+
                                 "My Balance <p class='float-right'>" + utilidad_bal + "</p>");
+                }
             });   
         },
         error: function(data) {
