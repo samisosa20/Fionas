@@ -132,7 +132,15 @@
 									<label class="mr-sm-2" for="monto_ini">Monto inicial</label>
 									<input type="number" step="0.01" class="form-control custom-radius custom-shadow border-0" id="monto_ini">
 								</div>
-							</div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
+                                <div class="form-check form-check-inline">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="account_save">
+                                        <label class="custom-control-label" for="account_save">Seleciona si es cuenta para ahorrar</label>
+                                    </div>
+                                </div>
+                            </div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-light"
