@@ -1008,6 +1008,7 @@ if (document.getElementById("body_profile")){
 					if (data == 200) {
 						document.getElementById("pass_1").value = "";
 						document.getElementById("pass_2").value = "";
+						alert("Los datos se guardaron correctamente");
 					} else {
 						alert("Error: " + data);
 					}
