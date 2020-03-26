@@ -42,7 +42,7 @@ $(function () {
     });
 
     d3.select('#campaign-v3 .c3-chart-arcs-title').style('font-family', 'Rubik');
-*/
+
     var chart1 = c3.generate({
         bindto: '#campaign-v4',
         data: {
@@ -80,7 +80,7 @@ $(function () {
     });
 
     d3.select('#campaign-v4 .c3-chart-arcs-title').style('font-family', 'Rubik');
-
+*/
     // ============================================================== 
     // income
     // ============================================================== 
