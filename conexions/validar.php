@@ -19,6 +19,7 @@
             $_SESSION["user"]=$user;
             $_SESSION["Id_user"]=$id_user;
             $_SESSION["name"]=$name;
+            $_SESSION["divisa"]=$result["divisa_prim"];
             $_SESSION["last_name"]=$last_name;
         } else {
             echo 450;
