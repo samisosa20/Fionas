@@ -108,6 +108,27 @@ function consolidado_card(){
         }
     }
 };
+function ahorrado(){
+    include_once('../conexions/connect.php'); 
+    // Check connection
+    if ( mysqli_connect_errno() ) {
+        echo "Error: Ups! Hubo problemas con la conexión.  Favor de intentar nuevamente.";
+    } else {
+        $id_user = $_GET['idu'];
+        $divi =  $_GET['divi'];
+        $strsql = "SELECT SUM(valor) + monto_inicial AS cantidad FROM fionadb.cuentas AS a JOIN fionadb.movimientos AS b
+        ON(a.id_user = b.id_user and b.cuenta = a.id) WHERE a.id_user='$id_user' and b.divisa='$divi'
+        and cuenta_ahorro = 1";
+        $rs = mysqli_query($conn, $strsql);
+        $total_rows = $rs->num_rows;
+        if ($total_rows > 0 ) {
+            while ($row = $rs->fetch_object()){
+                $data[] = $row;
+            }
+            echo(json_encode($data));
+        }
+    }
+};
 $action = $_GET['action'];
 switch($action) {
     case 1: 
@@ -124,6 +145,9 @@ switch($action) {
         break;
     case 5:
         consolidado_card();
+        break;
+    case 6:
+        ahorrado();
         break;
 }
 ?>
