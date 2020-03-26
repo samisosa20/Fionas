@@ -5,9 +5,10 @@
     $name = $_POST["name"];
     $lastname = $_POST["last_name"];
     $pass = $_POST["passw"];
+    $hash = Password::hash($pass);
     if ($pass != ""){
         $update = "UPDATE fionadb.users
-        SET name='$name', last_name='$lastname', password='$pass'
+        SET name='$name', last_name='$lastname', password='$hash'
         WHERE id_user='$id_user';";
     } else{
         $update = "UPDATE fionadb.users
