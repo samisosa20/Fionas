@@ -4,6 +4,8 @@ $id_user = "\"".$_SESSION["Id_user"]."\"";
 ?>
 load_data();
 view_chart();
+var idu = <?php echo $id_user;?>;
+val_session(idu);
 function load_data(){
     var idu = <?php echo $id_user;?>;
     document.getElementById("lbl_ingreso").innerHTML = "";
@@ -73,7 +75,7 @@ function load_data(){
         }
     });
 };
-var idu = <?php echo $id_user;?>;
+
 $('#add_move_btn').click(function(){
     PostCategoria("consult_cate.php");
     PostCuentas("consult_accont.php", "dash_cuenta");
@@ -284,6 +286,11 @@ function signo(id, id2){
         signal.innerHTML = "+";
         signal.value = "+";
         signal.className = "btn btn-outline-success";
+    }
+};
+function val_session(idu){
+    if(idu == ""){
+        window.location = "/";
     }
 };
 
@@ -524,4 +531,4 @@ function view_chart(){
     });
     d3.select('#campaign-v2 .c3-chart-arcs-title').style('font-family', 'Rubik');
     d3.select('#campaign-v3 .c3-chart-arcs-title').style('font-family', 'Rubik');
-}
+};
