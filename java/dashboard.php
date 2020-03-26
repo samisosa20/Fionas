@@ -55,6 +55,7 @@ function load_card(divisa_primary){
     document.getElementById("lbl_ingreso").innerHTML = "";
     document.getElementById("lbl_egreso").innerHTML = "";
     document.getElementById("lbl_utilidad").innerHTML = "";
+    document.getElementById("lbl_ahorros").innerHTML = "";
     $.ajax({
         type: "GET",
         url: '../json/consult.php?action=5&idu='+idu+'&divi='+divisa_primary, 
@@ -105,6 +106,37 @@ function load_card(divisa_primary){
             $("#lbl_ingreso").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
             $("#lbl_egreso").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
             $("#lbl_utilidad").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
+        }
+    });
+    $.ajax({
+        type: "GET",
+        url: '../json/consult.php?action=6&idu='+idu+'&divi='+divisa_primary, 
+        dataType: "json",
+        success: function(data){
+            //console.log(data);
+            $.each(data,function(key, registro) {
+                var ahorro = registro.cantidad;
+
+                if (!ahorro) {
+                    ahorro = 0 + ' K';
+                }
+
+                if (ahorro >= 1000 && ahorro < 1000000){
+                    ahorro = ahorro / 1000 + " K";
+                } else if (ahorro >= 1000000){
+                    ahorro = ahorro / 1000000 + " M";
+                } else if (ahorro <= -1000 && ahorro > -1000000){
+                    ahorro = ahorro / 1000 + " K";
+                } else if (ahorro <= -1000000){
+                    ahorro = ahorro / 1000000 + " M";
+                }
+
+                $("#lbl_ahorros").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
+                    "class='set-doller'>$</sup>"+ahorro+"</h2>");
+            });   
+        },
+        error: function(data) {
+            $("#lbl_ahorros").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
         }
     });
     view_chart(divisa_primary);
@@ -577,7 +609,6 @@ function view_chart(divisa_primary){
                 data2[d.categoria] = d.cantidad;
                 value.push(d.categoria);
             });
-            //console.log(data2);
             var chart1 = c3.generate({
             bindto: '#campaign-v4',
             data: {
@@ -631,10 +662,10 @@ function view_chart(divisa_primary){
         },
         error: function (data) {
             var chart1 = c3.generate({
-            bindto: '#campaign-v3',
+            bindto: '#campaign-v4',
             data: {
                 columns: [
-                    ['Sin egresos', 1],
+                    ['Sin Ahorros', 1],
                 ],
 
                 type: 'donut',
@@ -646,7 +677,7 @@ function view_chart(divisa_primary){
                 label: {
                     show: false
                 },
-                title: 'Egresos',
+                title: 'Ahorros',
                 width: 18
             },
 
