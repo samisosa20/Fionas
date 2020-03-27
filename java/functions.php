@@ -42,7 +42,7 @@ if (document.getElementById("ModalCategora")) {
 							sub = 0;
 						}
 						load_data_cat(sub, idu);
-						PostCategoria("consult_cate.php", "categoria");
+						getPagina("consult_cate.php", "categoria");
 					} else {
 						alert("Error: " + data);
 					}
@@ -78,7 +78,7 @@ if (document.getElementById("ModalCategora")) {
 		});
 	};
 	function edit_categoria(id, nombre, descripcion, grupo, sub_categoria){
-		PostCategoria("consult_cate.php?act="+sub_categoria, "edit_categoria");
+		getPagina("consult_cate.php?act="+sub_categoria, "edit_categoria");
 		document.getElementById("edit_nombre").value = nombre;
 		document.getElementById("edit_descripcion").value = descripcion;
 		document.getElementById("edit_grupo").value = grupo;
@@ -204,7 +204,7 @@ if (document.getElementById("ModalCategora")) {
 	};
 	var aux = 0;
 	load_data_cat(0, idu);
-	PostCategoria("consult_cate.php", "categoria");
+	getPagina("consult_cate.php", "categoria");
 	load_data_balance();
 	setInterval(function(){
 		var url = window.location.href;
@@ -216,7 +216,7 @@ if (document.getElementById("ModalCategora")) {
 		if (sub != aux){
 			var idu = <?php echo $id_user; ?>;
 			aux = sub;
-			PostCategoria("consult_cate.php?act="+sub, "categoria");
+			getPagina("consult_cate.php?act="+sub, "categoria");
 			load_data_cat(sub, idu);
 		}
 	}, 1000);
@@ -460,8 +460,9 @@ if (document.getElementById("table_move_acc")){
 	var div = url.split("=");
 	var sub = div[1];
 	rellenar_table_move_acc();
-	PostTitleMovi("consult_title_movi.php?action=1&id="+sub);
-	PostDescAcc("consult_title_movi.php?action=2&id="+sub);
+	getPagina("consult_title_movi.php?action=1&id="+sub,"title_movi");
+	getPagina("consult_title_movi.php?action=2&id="+sub,"descri_acc");
+	getPagina("consult_title_movi.php?action=3&id="+sub,"balance_acc");
 	load_data_balance();
 	function rellenar_table_move_acc(){
 		$.ajax({
@@ -525,48 +526,8 @@ if (document.getElementById("table_move_acc")){
 			}
 		});
   	};
-	function PostTitleMovi(strURLop) {
-		var xmlHttp;
-		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
-			var xmlHttp = new XMLHttpRequest();
-		}else if (window.ActiveXObject) { // IE
-			var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlHttp.open('POST', strURLop, true);
-		xmlHttp.setRequestHeader
-			('Content-Type', 'application/x-www-form-urlencoded');
-		xmlHttp.onreadystatechange = function() {
-			if (xmlHttp.readyState == 4) {
-				UpdateTitle(xmlHttp.responseText);
-			}
-		}
-		xmlHttp.send(strURLop);
-	}
-	function UpdateTitle(str){
-		document.getElementById("title_movi").innerHTML = str ;
-	}
-	function PostDescAcc(strURLop) {
-		var xmlHttp;
-		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
-			var xmlHttp = new XMLHttpRequest();
-		}else if (window.ActiveXObject) { // IE
-			var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlHttp.open('POST', strURLop, true);
-		xmlHttp.setRequestHeader
-			('Content-Type', 'application/x-www-form-urlencoded');
-		xmlHttp.onreadystatechange = function() {
-			if (xmlHttp.readyState == 4) {
-				UpdateDescripAcc(xmlHttp.responseText);
-			}
-		}
-		xmlHttp.send(strURLop);
-	}
-	function UpdateDescripAcc(str){
-		document.getElementById("descri_acc").innerHTML = str ;
-	}
 	$("#add_move_btn").click(function(){
-		PostCategoria("consult_cate.php", "categoria");
+		getPagina("consult_cate.php", "categoria");
 		var now = new Date($.now())
 			, year
 			, month
@@ -600,6 +561,18 @@ if (document.getElementById("table_move_acc")){
 			signal.className = "btn btn-outline-success";
 		}
 	});
+	$("#edit_monto_signal").click(function(){
+		var signal = document.getElementById("edit_monto_signal");
+		if (signal.value == "+"){
+			signal.innerHTML = "-";
+			signal.value = "-";
+			signal.className = "btn btn-outline-danger";
+		} else {
+			signal.innerHTML = "+";
+			signal.value = "+";
+			signal.className = "btn btn-outline-success";
+		}
+	});
 	$("#trans_monto_signal").click(function(){
 		var signal = document.getElementById("monto_signal");
 		if (signal.value == "+"){
@@ -616,17 +589,15 @@ if (document.getElementById("table_move_acc")){
 		var nro = document.getElementById(id).value;
 		var signal = document.getElementById(id2);
 		if (nro < 0){
-			signal.innerHTML = "-";
-			signal.value = "-";
-			signal.className = "btn btn-outline-danger";
+			if (id2 != ''){
+				signal.innerHTML = "-";
+				signal.value = "-";
+				signal.className = "btn btn-outline-danger";
+			}
 			document.getElementById(id).value = nro * -1;
-		} else {
-			signal.innerHTML = "+";
-			signal.value = "+";
-			signal.className = "btn btn-outline-success";
 		}
 	};
-	$("#save_trans").click(function(){
+	$("#save_trans").unbind('click').click(function(){
 		var monto_signal = document.getElementById("monto_signal").value;
 		var valor = document.getElementById("valor").value;
 		var divisa = document.getElementById("divisa").value;
@@ -676,6 +647,7 @@ if (document.getElementById("table_move_acc")){
 						document.getElementById("categoria").value = 0;
 						$('#table_move_acc').dataTable().fnDestroy();
 						rellenar_table_move_acc();
+						getPagina("consult_title_movi.php?action=3&id="+sub,"balance_acc");
 						load_data_balance();
 					} else {
 						alert("Error: " + data);
@@ -688,16 +660,18 @@ if (document.getElementById("table_move_acc")){
 		$('#ModalDelete').modal('show');
 		document.getElementById("text_delete").innerHTML = "Esta segur@ de eliminar la transacción <strong>"+
 		categoria + " </strong> por un valor de  <strong>" + valor + " </strong> con fecha " + fecha;
-		$('#delete_trans').click(function(){
+		$('#delete_trans').unbind('click').click(function(){
 			$.ajax({
 				url: '../conexions/delete_movi.php', 
 				type: 'POST',
-				data: {id: id },
+				data: {id: id,
+				fecha: fecha },
 				success: function(data){
 					alert("Se guardaron los cambios.");
 					$('#ModalDelete').modal('hide');
 					$('#table_move_acc').dataTable().fnDestroy();
 					rellenar_table_move_acc();
+					getPagina("consult_title_movi.php?action=3&id="+sub,"balance_acc");
 					load_data_balance();
 				},
 				error: function(data) {
@@ -707,8 +681,8 @@ if (document.getElementById("table_move_acc")){
 		});
 	};
 	function edit_trans(id, categoria, valor, fecha, descripcion, divisa, acco){
-		PostCategoria("consult_cate.php?act="+categoria, "edit_categoria");
-		PostCuentas("consult_accont.php?act="+acco, "edit_cuenta");
+		getPagina("consult_cate.php?act="+categoria, "edit_categoria");
+		getPagina("consult_accont.php?act="+acco, "edit_cuenta");
 		document.getElementById("edit_valor").value = valor;
 		document.getElementById("edit_divisa").value = divisa;
 		document.getElementById("edit_descripcion").value = descripcion;
@@ -744,6 +718,7 @@ if (document.getElementById("table_move_acc")){
 					$('#ModalEdit').modal('hide');
 					$('#table_move_acc').dataTable().fnDestroy();
 					rellenar_table_move_acc();
+					getPagina("consult_title_movi.php?action=3&id="+sub,"balance_acc");
 					load_data_balance();
 				},
 				error: function(data) {
@@ -754,11 +729,11 @@ if (document.getElementById("table_move_acc")){
 	};
 	function edit_movi(id, id_transfer, valor, fecha, descripcion, divisa, acco){
 		if (valor < 0){
-			PostCuentas("consult_accont.php?act="+acco, "Edit_trans_cuenta_ini");
-			PostCuentas("consult_accont.php?act="+id_transfer, "Edit_trans_cuenta_fin");
+			getPagina("consult_accont.php?act="+acco, "Edit_trans_cuenta_ini");
+			getPagina("consult_accont.php?act="+id_transfer, "Edit_trans_cuenta_fin");
 		} else {
-			PostCuentas("consult_accont.php?act="+acco, "Edit_trans_cuenta_fin");
-			PostCuentas("consult_accont.php?act="+id_transfer, "Edit_trans_cuenta_ini");
+			getPagina("consult_accont.php?act="+acco, "Edit_trans_cuenta_fin");
+			getPagina("consult_accont.php?act="+id_transfer, "Edit_trans_cuenta_ini");
 		}
 		if (valor < 0){
 			document.getElementById("Edit_trans_valor").value = valor * -1;
@@ -798,14 +773,15 @@ if (document.getElementById("table_move_acc")){
 					$('#ModalTransEdit').modal('hide');
 					$('#table_move_acc').dataTable().fnDestroy();
 					rellenar_table_move_acc();
+					getPagina("consult_title_movi.php?action=3&id="+sub,"balance_acc");
 					load_data_balance();
 				}
 			});
 		});
 	};
 	$('#add_trans_btn').click(function(){
-		PostCuentas("consult_accont.php", "trans_cuenta_ini");
-		PostCuentas("consult_accont.php", "trans_cuenta_fin");
+		getPagina("consult_accont.php", "trans_cuenta_ini");
+		getPagina("consult_accont.php", "trans_cuenta_fin");
 		var now = new Date($.now())
 			, year
 			, month
@@ -840,7 +816,7 @@ if (document.getElementById("table_move_acc")){
 			signal.className = "btn btn-outline-success";
 		}
 	});
-    $("#trans_trans").click(function(){
+    $("#trans_trans").unbind('click').click(function(){
 		var monto_signal = document.getElementById("trans_monto_signal").value;
 		var valor = document.getElementById("trans_valor").value;
         var cuenta_ini = document.getElementById("trans_cuenta_ini").value;
@@ -896,6 +872,7 @@ if (document.getElementById("table_move_acc")){
 						document.getElementById("trans_cuenta_fin").value = 0;
 						$('#table_move_acc').dataTable().fnDestroy();
 						rellenar_table_move_acc();
+						getPagina("consult_title_movi.php?action=3&id="+sub,"balance_acc");
 						load_data_balance();
 					} else {
 						alert("Error: " + data);
@@ -994,7 +971,7 @@ if (document.getElementById("body_profile")){
 	};
 };
 
-function PostCategoria(strURLop, div) {
+function getPagina(strURLop, div) {
 	var xmlHttp;
 	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
 		var xmlHttp = new XMLHttpRequest();
@@ -1006,33 +983,12 @@ function PostCategoria(strURLop, div) {
 		('Content-Type', 'application/x-www-form-urlencoded');
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) {
-			UpdatePageCate(xmlHttp.responseText, div);
+			UpdatePagina(xmlHttp.responseText, div);
 		}
 	}
 	xmlHttp.send(strURLop);
 };
-function UpdatePageCate(str, div){
-	document.getElementById(div).innerHTML = str ;
-};
-
-function PostCuentas(strURLop, div) {
-	var xmlHttp;
-	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
-		var xmlHttp = new XMLHttpRequest();
-	}else if (window.ActiveXObject) { // IE
-		var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlHttp.open('POST', strURLop, true);
-	xmlHttp.setRequestHeader
-		('Content-Type', 'application/x-www-form-urlencoded');
-	xmlHttp.onreadystatechange = function() {
-		if (xmlHttp.readyState == 4) {
-			UpdateCuentas(xmlHttp.responseText, div);
-		}
-	}
-	xmlHttp.send(strURLop);
-};
-function UpdateCuentas(str, div){
+function UpdatePagina(str, div){
 	document.getElementById(div).innerHTML = str ;
 };
 
