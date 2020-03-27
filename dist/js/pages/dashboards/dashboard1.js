@@ -157,10 +157,10 @@ $(function () {
     // ==============================================================
     // Earning Stastics Chart
     // ==============================================================
-    var chart = new Chartist.Line('.stats', {
+    /*var chart = new Chartist.Line('.stats', {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         series: [
-            [11, 10, 15, 21, 14, 23, 12]
+            [11, 10, 15, 21, 14, 50, 12]
         ]
     }, {
         low: 0,
@@ -178,7 +178,7 @@ $(function () {
                 return (value / 1) + 'k';
             }
         },
-    });
+    });*/
 
     // Offset x1 a tiny amount so that the straight stroke gets a bounding box
     chart.on('draw', function (ctx) {
