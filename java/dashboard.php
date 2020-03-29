@@ -7,6 +7,27 @@ load_data(1);
 var idu = <?php echo $id_user;?>;
 val_session(idu);
 
+function getPagina(strURLop, div) {
+    var xmlHttp;
+    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+        var xmlHttp = new XMLHttpRequest();
+    }else if (window.ActiveXObject) { // IE
+        var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlHttp.open('POST', strURLop, true);
+    xmlHttp.setRequestHeader
+        ('Content-Type', 'application/x-www-form-urlencoded');
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4) {
+            UpdatePage(xmlHttp.responseText, div);
+        }
+    }
+    xmlHttp.send(strURLop);
+};
+function UpdatePage(str, div){
+    document.getElementById(div).innerHTML = str ;
+};
+
 function load_data(reload){ // 1 to reload divisas and 0 to not reaload
     var idu = <?php echo $id_user;?>;
     document.getElementById("balance").innerHTML = "";
@@ -143,8 +164,8 @@ function load_card(divisa_primary){
 };
 
 $('#add_move_btn').click(function(){
-    PostCategoria("consult_cate.php");
-    PostCuentas("consult_accont.php", "dash_cuenta");
+    getPagina("consult_cate.php", "dash_categoria");
+    getPagina("consult_accont.php", "dash_cuenta");
     var now = new Date($.now())
         , year
         , month
@@ -240,10 +261,13 @@ $('#add_move_btn').click(function(){
 			});
 		}
 	});
+    $("#dash_cuenta").change(function(){
+        getPagina("consult_divisa.php?id="+this.value, "dash_divisa");
+    });
 });
 $('#add_trans_btn').click(function(){
-    PostCuentas("consult_accont.php", "dash_trans_cuenta_fin");
-    PostCuentas("consult_accont.php", "dash_trans_cuenta_ini");
+    getPagina("consult_accont.php", "dash_trans_cuenta_fin");
+    getPagina("consult_accont.php", "dash_trans_cuenta_ini");
     var now = new Date($.now())
         , year
         , month
@@ -339,6 +363,9 @@ $('#add_trans_btn').click(function(){
 			});
 		}
 	});
+    $("#dash_trans_cuenta_ini").change(function(){
+        getPagina("consult_divisa.php?id="+this.value, "dash_trans_divisa");
+    });
 });
 function signo(id, id2){
     var nro = document.getElementById(id).value;
@@ -354,47 +381,6 @@ function val_session(idu){
     if(idu == ""){
         window.location = "/";
     }
-};
-
-function PostCategoria(strURLop) {
-    var xmlHttp;
-    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
-        var xmlHttp = new XMLHttpRequest();
-    }else if (window.ActiveXObject) { // IE
-        var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlHttp.open('POST', strURLop, true);
-    xmlHttp.setRequestHeader
-        ('Content-Type', 'application/x-www-form-urlencoded');
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4) {
-            UpdatePage(xmlHttp.responseText);
-        }
-    }
-    xmlHttp.send(strURLop);
-};
-function UpdatePage(str){
-    document.getElementById("dash_categoria").innerHTML = str ;
-};
-function PostCuentas(strURLop, div) {
-    var xmlHttp;
-    if (window.XMLHttpRequest) { // Mozilla, Safari, ...
-        var xmlHttp = new XMLHttpRequest();
-    }else if (window.ActiveXObject) { // IE
-        var xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlHttp.open('POST', strURLop, true);
-    xmlHttp.setRequestHeader
-        ('Content-Type', 'application/x-www-form-urlencoded');
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4) {
-            UpdateCuentas(xmlHttp.responseText, div);
-        }
-    }
-    xmlHttp.send(strURLop);
-};
-function UpdateCuentas(str, div){
-    document.getElementById(div).innerHTML = str ;
 };
 
 function view_chart(divisa_primary){
@@ -692,55 +678,56 @@ function view_chart(divisa_primary){
     $('#movimientos-diarios').append("<div class='d-flex align-items-start'>"+
             "<h4 class='card-title mb-0'>Movimientos Diarios</h4>"+
         "</div>"+
-        "<canvas id='line-chart' height='150'></canvas>");
+        "<canvas id='line-chart' height='150'></canvas>"
+    );
     $.ajax({
-        type: "GET",
-        url: '../json/grafica.php?action=4&idu='+ idu+'&divi='+divisa_primary, 
-        dataType: "json",
-        success: function(data){
-            //console.log(data);
-            var fechas = [];
-            var val_ingre = [];
-            var val_egre = [];
-            JSON.parse(JSON.stringify(data)).forEach(function(d) {
-                fechas.push(d.fecha);
-                val_ingre.push(d.ingresos);
-                val_egre.push(d.egresos);
-            });
-            new Chart(document.getElementById("line-chart"), {
-                type: 'line',
-                data: {
-                    labels: fechas,
-                    datasets: [{ 
-                        data: val_ingre,
-                        label: "Ingresos",
-                        borderColor: "#22ca80",
-                        fill: false
-                    }, { 
-                        data: val_egre,
-                        label: "Egresos",
-                        borderColor: "#ff4f70",
-                        fill: false
-                    }
-                    ]
-                },
-                options: {
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                // Include a dollar sign in the ticks
-                                callback: function(value, index, values) {
-                                    if (value < 1000000){
-                                        return value / 1000 + 'k';
-                                    } else {
-                                        return value / 1000000 + 'M';
+            type: "GET",
+            url: '../json/grafica.php?action=4&idu='+ idu+'&divi='+divisa_primary, 
+            dataType: "json",
+            success: function(data){
+                //console.log(data);
+                var fechas = [];
+                var val_ingre = [];
+                var val_egre = [];
+                JSON.parse(JSON.stringify(data)).forEach(function(d) {
+                    fechas.push(d.fecha);
+                    val_ingre.push(d.ingresos);
+                    val_egre.push(d.egresos);
+                });
+                new Chart(document.getElementById("line-chart"), {
+                    type: 'line',
+                    data: {
+                        labels: fechas,
+                        datasets: [{ 
+                            data: val_ingre,
+                            label: "Ingresos",
+                            borderColor: "#22ca80",
+                            fill: false
+                        }, { 
+                            data: val_egre,
+                            label: "Egresos",
+                            borderColor: "#ff4f70",
+                            fill: false
+                        }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    // Include a dollar sign in the ticks
+                                    callback: function(value, index, values) {
+                                        if (value < 1000000){
+                                            return value / 1000 + 'k';
+                                        } else {
+                                            return value / 1000000 + 'M';
+                                        }
                                     }
                                 }
-                            }
-                        }]
+                            }]
+                        }
                     }
-                }
-	});
+            });
         },
         error: function (data) {
             var chart1 = c3.generate({
@@ -774,7 +761,9 @@ function view_chart(divisa_primary){
             });
         }
     });
-    
+
+    document.getElementById("activity_current").innerHTML = "";
+    getPagina("consult_activity.php","activity_current");
     d3.select('#campaign-v2 .c3-chart-arcs-title').style('font-family', 'Rubik');
     d3.select('#campaign-v3 .c3-chart-arcs-title').style('font-family', 'Rubik');
     d3.select('#campaign-v4 .c3-chart-arcs-title').style('font-family', 'Rubik');
