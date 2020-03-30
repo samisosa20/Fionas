@@ -97,7 +97,7 @@ function consolidado_card(){
     } else {
         $id_user = $_GET['idu'];
         $divi =  $_GET['divi'];
-        $strsql = "SELECT FORMAT(ingreso,2) AS ingreso, FORMAT(Egresos,2) AS egreso, 
+        $strsql = "SELECT FORMAT(ingreso,2) AS ingreso, FORMAT(Egresos,2) AS Egresos, 
         FORMAT(utilidad, 2) AS utilidad, FORMAT(utilidad,2) AS utilidad_bal,
         divisa FROM fionadb.consolidado WHERE id_user='$id_user' and divisa='$divi'";
         $rs = mysqli_query($conn, $strsql);
