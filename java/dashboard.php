@@ -88,45 +88,26 @@ function load_card(divisa_primary){
                 var egreso = registro.Egresos;
                 var utilidad = registro.utilidad;
                 if (!ingreso) {
-                    ingreso = 0 + ' K';
+                    ingreso = 0.00;
                 }
                 if (!egreso) {
-                    egreso = 0 + ' K';
+                    egreso = 0.00;
                 }
                 if (!utilidad) {
-                    utilidad = 0 + ' K';
+                    utilidad = 0.00;
                 }
-                if (ingreso >= 1000 && ingreso < 1000000){
-                    ingreso = (ingreso / 1000).toFixed(2) + " K";
-                } else if (ingreso >= 1000000){
-                    ingreso = (ingreso / 1000000).toFixed(2) + " M";
-                }
-                if (egreso <= -1000 && egreso > -1000000){
-                    egreso = (egreso / 1000).toFixed(2) + " K";
-                } else if (egreso <= -1000000){
-                    egreso = (egreso / 1000000).toFixed(2) + " M";
-                }
-                if (utilidad >= 1000 && utilidad < 1000000){
-                    utilidad = (utilidad / 1000).toFixed(2) + " K";
-                } else if (utilidad >= 1000000){
-                    utilidad = (utilidad / 1000000).toFixed(2) + " M";
-                } else if (utilidad <= -1000 && utilidad > -1000000){
-                    utilidad = (utilidad / 1000).toFixed(2) + " K";
-                } else if (utilidad <= -1000000){
-                    utilidad = (utilidad / 1000000).toFixed(2) + " M";
-                }
-                $("#lbl_ingreso").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
-                    "class='set-doller'>$</sup>"+ingreso+"</h2>");
-                $("#lbl_egreso").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
-                    "class='set-doller'>$</sup>"+egreso+"</h2>");
-                $("#lbl_utilidad").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
-                    "class='set-doller'>$</sup>"+utilidad+"</h2>");
+                $("#lbl_ingreso").append("<h3 class='text-dark mb-1 font-weight-medium'><sup " +
+                    "class='set-doller'>$</sup>"+ingreso+"</h3>");
+                $("#lbl_egreso").append("<h3 class='text-dark mb-1 font-weight-medium'><sup " +
+                    "class='set-doller'>$</sup>"+egreso+"</h3>");
+                $("#lbl_utilidad").append("<h3 class='text-dark mb-1 font-weight-medium'><sup " +
+                    "class='set-doller'>$</sup>"+utilidad+"</h3>");
             });   
         },
         error: function(data) {
-            $("#lbl_ingreso").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
-            $("#lbl_egreso").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
-            $("#lbl_utilidad").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
+            $("#lbl_ingreso").append("<h3 class='text-dark mb-1 font-weight-medium'>0.00</h3>");
+            $("#lbl_egreso").append("<h3 class='text-dark mb-1 font-weight-medium'>0.00</h3>");
+            $("#lbl_utilidad").append("<h3 class='text-dark mb-1 font-weight-medium'>0.00</h3>");
         }
     });
     $.ajax({
@@ -139,25 +120,15 @@ function load_card(divisa_primary){
                 var ahorro = registro.cantidad;
 
                 if (!ahorro) {
-                    ahorro = 0 + ' K';
+                    ahorro = 0.00;
                 }
 
-                if (ahorro >= 1000 && ahorro < 1000000){
-                    ahorro = (ahorro / 1000).toFixed(2) + " K";
-                } else if (ahorro >= 1000000){
-                    ahorro = (ahorro / 1000000).toFixed(2) + " M";
-                } else if (ahorro <= -1000 && ahorro > -1000000){
-                    ahorro = (ahorro / 1000).toFixed(2) + " K";
-                } else if (ahorro <= -1000000){
-                    ahorro = (ahorro / 1000000).toFixed(2) + " M";
-                }
-
-                $("#lbl_ahorros").append("<h2 class='text-dark mb-1 font-weight-medium'><sup " +
-                    "class='set-doller'>$</sup>"+ahorro+"</h2>");
+                $("#lbl_ahorros").append("<h3 class='text-dark mb-1 font-weight-medium'><sup " +
+                    "class='set-doller'>$</sup>"+ahorro+"</h3>");
             });   
         },
         error: function(data) {
-            $("#lbl_ahorros").append("<h2 class='text-dark mb-1 font-weight-medium'>0 K</h2>");
+            $("#lbl_ahorros").append("<h3 class='text-dark mb-1 font-weight-medium'>0.00</h3>");
         }
     });
     view_chart(divisa_primary);

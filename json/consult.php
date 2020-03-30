@@ -97,7 +97,8 @@ function consolidado_card(){
     } else {
         $id_user = $_GET['idu'];
         $divi =  $_GET['divi'];
-        $strsql = "SELECT ingreso, Egresos, utilidad, FORMAT(utilidad,2) AS utilidad_bal,
+        $strsql = "SELECT FORMAT(ingreso,2) AS ingreso, FORMAT(Egresos,2) AS egreso, 
+        FORMAT(utilidad, 2) AS utilidad, FORMAT(utilidad,2) AS utilidad_bal,
         divisa FROM fionadb.consolidado WHERE id_user='$id_user' and divisa='$divi'";
         $rs = mysqli_query($conn, $strsql);
         $total_rows = $rs->num_rows;
@@ -117,7 +118,7 @@ function ahorrado(){
     } else {
         $id_user = $_GET['idu'];
         $divi =  $_GET['divi'];
-        $strsql = "SELECT IF(SUM(valor) IS NULL, 0, SUM(valor)) + monto_inicial AS cantidad 
+        $strsql = "SELECT FORMAT(IF(SUM(valor) IS NULL, 0, SUM(valor)) + monto_inicial, 2) AS cantidad 
         FROM fionadb.cuentas AS a LEFT JOIN fionadb.movimientos AS b
         ON(a.id_user = b.id_user and b.cuenta = a.id) WHERE a.id_user='$id_user' and a.divisa='$divi'
         and cuenta_ahorro = 1";
