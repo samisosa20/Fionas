@@ -54,7 +54,8 @@ function movimientos(){
     } else {
         $id_user = $_GET['idu'];
         $lvl = $_GET['lvl'];
-        $strsql = "SELECT a.id, a.categoria AS nro_cate, b.categoria, valor AS valor_int, FORMAT(valor,2) AS valor, divisa, fecha, DAY(fecha) AS dia, MONTH(fecha) AS mes,
+        $strsql = "SELECT a.id, a.categoria AS nro_cate, IF(a.categoria = 0, 'Sin categoria',b.categoria) AS categoria,
+        valor AS valor_int, FORMAT(valor,2) AS valor, divisa, fecha, DAY(fecha) AS dia, MONTH(fecha) AS mes,
         YEAR(fecha) AS ano, a.descripcion, a.id_transfe FROM fionadb.movimientos AS a JOIN fionadb.categorias AS b ON
         (a.id_user = b.id_user and b.id = a.categoria) WHERE cuenta=$lvl and a.id_user='$id_user'";
         $rs = mysqli_query($conn, $strsql);
