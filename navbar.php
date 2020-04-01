@@ -223,19 +223,19 @@ $divisa_prim = $_SESSION["divisa"]
                     <ul id="sidebarnav">
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="dashboard.php"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                    class="hide-menu">Dashboard</span></a></li>
+                                    class="hide-menu">DASHBOARD</span></a></li>
                         <li class="list-divider"></li>
                         <li id="account-list" class="sidebar-item"> <a class="sidebar-link" href="cuentas.php"
                                 aria-expanded="false"><i data-feather="tag" class="feather-icon"></i><span
-                                    class="hide-menu">Cuentas
+                                    class="hide-menu">CUENTAS
                                 </span></a>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="categorias.php"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
-                                    class="hide-menu">Categorias</span></a></li>
+                                    class="hide-menu">CATEGORIA</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="presupuesto.html"
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
-                                    class="hide-menu">Presupuesto</span></a></li>
+                                    class="hide-menu">PRESUPUESTO</span></a></li>
 
                         <li class="list-divider"></li>
                         <!--<li class="nav-small-cap"><span class="hide-menu">Configuraciiones</span></li>
@@ -424,7 +424,7 @@ $divisa_prim = $_SESSION["divisa"]
                         <li class="list-divider"></li>-->
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/"
                                 aria-expanded="false"><i data-feather="log-out" class="feather-icon"></i><span
-                                    class="hide-menu">Logout</span></a></li>
+                                    class="hide-menu">FINALIZAR SESION</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
