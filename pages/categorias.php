@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Fiona - Categorias</title>
+    <title>Fiona - Categorías</title>
     <!-- This page css -->
     <!-- Custom CSS -->
     <link href="../dist/css/style.min.css" rel="stylesheet">
@@ -52,12 +52,12 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Lista de categorias</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">LISTA DE CATEGORIAS</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="dashboard.php" class="text-muted">Dashboard</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page">Categorias</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page">Categorías</li>
                                 </ol>
                             </nav>
                         </div>
@@ -101,7 +101,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Creador de categorias</h4>
+							<h4 class="modal-title" id="myModalLabel">Creador de categorías</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
 						</div>
@@ -140,12 +140,12 @@
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12 mt-2">
 								<div class="form-group mb-4">
-									<label class="mr-sm-2" for="categoria">Incluirlo dentro de una categoria
+									<label class="mr-sm-2" for="categoria">Incluirlo dentro de una categoría
                                         <i class="fas fa-info-circle ml-1" data-container="body" style="color: #01caf1;"
                                             title="Sub-categoria" data-toggle="popover" data-placement="top"
-                                            data-content="Incluir una categoria dentro de otra ayuda a entender el comportamiento de los gastos.
-                                            Ej: categoria principal es vehiculo y dentro de esa categoria existe gasolina, parqueadero, seguro, mantenimiento, etc.
-                                            Para la categoria gasolina incluyo dentro de la categoria vehiculo.">
+                                            data-content="Incluir una categoría dentro de otra ayuda a entender el comportamiento de los gastos.
+                                            Ej: categoría principal es vehiculo y dentro de esa categoría existe gasolina, parqueadero, seguro, mantenimiento, etc.
+                                            Para la categoría gasolina incluyo dentro de la categoría vehiculo.">
                                         </i>
                                     </label>
 									<select class="custom-select mr-sm-2 custom-radius custom-shadow border-0"
@@ -167,7 +167,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Eliminar categoria</h4>
+							<h4 class="modal-title" id="myModalLabel">Eliminar categoría</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
 						</div>
@@ -186,7 +186,7 @@
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">Editor de categorias</h4>
+							<h4 class="modal-title" id="myModalLabel">Editor de categorías</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">×</button>
 						</div>
@@ -218,7 +218,7 @@
 							</div>
 							<div class="col-sm-12 col-md-12 col-lg-12 mt-2">
 								<div class="form-group mb-4">
-									<label class="mr-sm-2" for="edit_categoria">Incluirlo en una categoria</label>
+									<label class="mr-sm-2" for="edit_categoria">Incluirlo en una categoría</label>
 									<select class="custom-select mr-sm-2 custom-radius custom-shadow border-0"
 									id="edit_categoria">
 									</select>
@@ -233,6 +233,91 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
+            <div id="ModalCategoAddInfo" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Configuración Inicial I</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Categorías:</strong></p>
+                            <p>para crear una categoría dale clic en el siguiente recuadro:</p>
+                            <div class='col-md-12' id='add_categoria' data-target='#ModalCategora' data-toggle='modal' data-dismiss="modal">
+                                <a class='card'>
+                                    <div class='card-body'>
+                                        <div class='row'>
+                                            <div class='col-md-9 col-lg-9 col-xl-9'><h3 class='card-title text-muted'><i class='fas fa-plus mr-2'></i>Nueva categoría</h3></div>
+                                            <div class='col-md-12 col-lg-12 col-xl-12' style='position: absolute;'><h4 class='card-title text-muted fa-2x float-right'><i class='icon-arrow-right'></i></h4></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn waves-effect waves-light btn-rounded btn-primary"
+                                data-dismiss="modal">Finalizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ModalCongratuCatego" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Felicitaciones!</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Bien hecho </strong>!</p>
+                            <p>Haz creado tu primera categoría. Crea todas las categorías necesarias e incluso
+                            agrega subcategorías.</p>
+                            <p><strong>Ej:</strong> Categoría principal <strong>Vehiculo</strong> y dentro de esta 
+                            <strong>gasolina, parqueadero, repuestos, impuestos, etc</strong>.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                            <button type="button" 
+                                class="btn waves-effect waves-light btn-rounded btn-primary"
+                                data-toggle="modal" data-target="#ModalAccountInfo" data-dismiss="modal">Siguiente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ModalAccountInfo" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Configuración Inicial II</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Cuentas:</strong></p>
+                            <p>El siguiente paso será crear las cuentas con las cuales podras identificar donde esta depositado
+                            el dinero.</p>
+                            <p><strong>Ej: </strong>Cuenta de ahorros - Natillera - CDT - Efectivo - Tarjeta de credito</p>
+                            <p>Para eso darás clic en cuentas en la barra de navegación ubicada al lado izquierdo de la 
+                            pagina o <i class="fas fa-bars"></i> ubicado en la parte superior lado izquierdo.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                            <a href="cuentas.php">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary">Siguiente</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->

@@ -6,7 +6,7 @@ $divisa_primary = "\"".$_SESSION["divisa"]."\"";
 load_data(1);
 var idu = <?php echo $id_user;?>;
 val_session(idu);
-
+val_new_user(idu);
 function getPagina(strURLop, div) {
     var xmlHttp;
     if (window.XMLHttpRequest) { // Mozilla, Safari, ...
@@ -740,3 +740,19 @@ function view_chart(divisa_primary){
     d3.select('#campaign-v4 .c3-chart-arcs-title').style('font-family', 'Rubik');
 
 };
+
+function val_new_user(idu){
+    $.ajax({
+        type: "GET",
+        url: '../json/consult.php?action=7&idu='+idu, 
+        dataType: "json",
+        success: function(data){
+            //console.log(data);
+            $.each(data,function(key, registro) {
+                if (registro.categorias == 1 && registro.cuentas == 0){
+                    $("#ModalWelcome").modal('show');
+                }
+            });   
+        }
+    }); 
+}

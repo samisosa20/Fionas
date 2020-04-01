@@ -50,7 +50,7 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-7 align-self-center">
+                    <div class="col-sm-12 col-md-10 align-self-center">
                         <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">
                             <?php echo "Bienvenid@ $name $last_name"; ?>
                         </h3>
@@ -63,7 +63,7 @@
                             </nav>
                         </div>
                     </div>
-                    <div class="col-5 align-self-center">
+                    <div class="col-md-2 align-self-center">
                         <div class="customize-input float-right">
                             <select id="select_divisa" onchange= "load_card(this.value)"
                             class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
@@ -639,6 +639,69 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
+            <div id="ModalWelcome" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Bienvenido</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><?php echo "Bienvenid@ <strong>$name $last_name</strong>"; ?> a la App <strong>Fiona</strong>,
+                            tu asistente financiero. Antes de comenzar te daremos una breve explicación de como utilizarla:
+                            </p>
+                            <li>
+                                <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fas fa-plus mr-2"></i>Movimiento</button> Este boton es utilizado
+                                para ingresar salidas o entradas de dinero.<br>
+                                <strong>Ej:</strong> la cantidad de dinero que recibes por tu salario.
+                            </li>
+                            <li><button type="button" class="btn waves-effect waves-light btn-rounded btn-success">
+                            <i class="fas fa-exchange-alt mr-2"></i>Transferencia</button> Este boton es ultilizado cuando requieres
+                            pasar una suma de dinero de una cuenta a otra.<br>
+                            <strong>Ej:</strong> Pasar 50.000 COP de mi cuenta de ahorros a mi cuenta CDT.</li>
+                            <li><i class="fas fa-info-circle" data-container="body" style="color: #01caf1;"></i>
+                              Cuando encuentres este icono podrás darle clic para mas información.
+                            </li>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary" 
+                            data-toggle="modal" data-target="#ModalCategoInfo" data-dismiss="modal">Siguiente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ModalCategoInfo" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Configuración Inicial I</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Categorías:</strong></p>
+                            <p>Deberas de crear las categorías para identificar los gastos o ingresos mas frecuentes.</p>
+                            <p>Para eso darás clic en categorías en la barra de navegación ubicada al lado izquierdo
+                            de la pagina o <i class="fas fa-bars"></i> ubicado en la parte superior lado izquierdo.</p>
+                            <p><strong>Ej: </strong> Si posees gastos que provenga de un vehiculo puedes crear una 
+                            categoria llama vehiculo.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                            <a href="categorias.php">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary">Siguiente</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->

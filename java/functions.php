@@ -43,6 +43,20 @@ if (document.getElementById("ModalCategora")) {
 						}
 						load_data_cat(sub, idu);
 						getPagina("consult_cate.php", "categoria");
+						$.ajax({
+							type: "GET",
+							url: '../json/consult.php?action=7&idu='+idu, 
+							dataType: "json",
+							success: function(data){
+								//console.log(data);
+								$.each(data,function(key, registro) {
+									if (registro.categorias == 2){
+										$("#ModalCongratuCatego").modal('show');
+									}
+								});   
+							}
+						}); 
+						
 					} else {
 						alert("Error: " + data);
 					}
@@ -201,10 +215,26 @@ if (document.getElementById("ModalCategora")) {
 			}
 		});
 	};
+	function val_new_cate(idu){
+		$.ajax({
+			type: "GET",
+			url: '../json/consult.php?action=7&idu='+idu, 
+			dataType: "json",
+			success: function(data){
+				//console.log(data);
+				$.each(data,function(key, registro) {
+					if (registro.categorias == 1){
+						$("#ModalCategoAddInfo").modal('show');
+					}
+				});   
+			}
+		}); 
+	}
 	var aux = 0;
 	load_data_cat(0, idu);
 	getPagina("consult_cate.php", "categoria");
 	load_data_balance();
+	val_new_cate(idu)
 	setInterval(function(){
 		var url = window.location.href;
 		var div = url.split("#");
@@ -267,6 +297,19 @@ if (document.getElementById("ModalAccount")) {
 						}
 						load_data(sub, idu);
 						load_data_balance();
+						$.ajax({
+							type: "GET",
+							url: '../json/consult.php?action=7&idu='+idu, 
+							dataType: "json",
+							success: function(data){
+								//console.log(data);
+								$.each(data,function(key, registro) {
+									if (registro.cuentas == 1){
+										$("#ModalCongratuAccon").modal('show');
+									}
+								});   
+							}
+						}); 
 					} else {
 						alert("Error: " + data);
 					}
@@ -435,9 +478,25 @@ if (document.getElementById("ModalAccount")) {
 			}
 		});
 	};
+	function val_new_acco(idu){
+		$.ajax({
+			type: "GET",
+			url: '../json/consult.php?action=7&idu='+idu, 
+			dataType: "json",
+			success: function(data){
+				//console.log(data);
+				$.each(data,function(key, registro) {
+					if (registro.cuentas == 0){
+						$("#ModalAccountInfo").modal('show');
+					}
+				});   
+			}
+		}); 
+	}
 	var aux = 0;
 	load_data(0, idu);
 	load_data_balance();
+	val_new_acco(idu);
 	setInterval(function(){
 		var url = window.location.href;
 		var div = url.split("#");

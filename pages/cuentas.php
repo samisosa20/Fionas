@@ -47,7 +47,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Lista de cuentas</h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">LISTA DE CUENTAS</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
@@ -239,7 +239,98 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-            
+            <div id="ModalAccountInfo" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Configuración Inicial II</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Cuentas:</strong></p>
+                            <p>para crear una cuenta dale clic en el siguiente recuadro:</p>
+                            <div class='col-md-12'>
+                                <a class='card'>
+                                    <div class='card-body'>
+                                        <div class='row'>
+                                            <div class='col-md-9 col-lg-9 col-xl-9'><h3 class='card-title text-muted'><i class='fas fa-plus mr-2'></i>Nueva cuenta</h3></div>
+                                            <div class='col-md-12 col-lg-12 col-xl-12' style='position: absolute;'><h4 class='card-title text-muted fa-2x float-right'><i class='icon-arrow-right'></i></h4></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary"
+                            data-dismiss="modal">Siguiente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ModalCongratuAccon" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Felicitaciones!</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Bien hecho </strong>!</p>
+                            <p>Haz creado tu primera cuenta. Crea todas las cuentas necesarias para saber
+                            extactamente donde tienes la plata y que cantidad.</p>
+                            <!--<p>Ahora entendamos para que sirven algunos botones:</p>
+                            <li><a class='btn btn-rounded btn-success text-white'><i class='fas fa-sign-out-alt mr-2'></i>Entrar</a>
+                             Este boton sirve para ingresar a la cuenta y ver todos los movimeintos que se ha tenido.
+                            </li>
+                            <li><button class='btn btn-circle btn-primary'><i class='far fa-edit'></i></button>
+                             Este boton sirve para editar la informacion de la cuenta.
+                            </li>
+                            <li><button class='btn btn-circle btn-danger' ><i class='fas fa-trash-alt'></i></button>
+                             Este boton sirve para Eliminar la cuenta y todos los movimientos que tenga la cuenta
+                            </li>-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                            <button type="button" 
+                                class="btn waves-effect waves-light btn-rounded btn-primary"
+                                data-toggle="modal" data-target="#ModalMoviInfo" data-dismiss="modal">Siguiente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ModalMoviInfo" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Uso de la App</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <p><strong>Ya estas en el ultimo paso </strong>!</p>
+                            <p>Para finalizar solo queda por ingresar tu primer movimeinto o transacción.</p>
+                            <p>Es importante que sepas que desde el boton <a class='btn btn-rounded btn-success text-white'>
+                            <i class='fas fa-sign-out-alt mr-2'></i>Entrar</a> puedes visualizar los movimeintos de tienes en
+                            dicha cartera.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn waves-effect waves-light btn-rounded btn-primary"
+                                data-dismiss="modal">Finalizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
