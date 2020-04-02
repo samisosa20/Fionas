@@ -622,7 +622,7 @@ if (document.getElementById("card_presu")) {
 									"<p class='card-text col-12 text-success'>Ingresos: $ "+registro.ingreso+"</p>"+
 									"<p class='card-text col-12 text-danger'>Egresos: $ "+registro.egreso+"</p>"+
 								"</div>"+
-								"<a href='movimientos.php?account="+registro.year+"' class='btn btn-rounded btn-success mr-1'>"+
+								"<a href='view-presu.php?yr="+registro.year+"' class='btn btn-rounded btn-success mr-1'>"+
 									"<i class='fas fa-sign-out-alt mr-2'></i>Entrar</a>"+
 								"<button class='btn btn-circle btn-primary mr-1' onclick='edit_account("+registro.id+","+'"'+registro.nombre+'"'+
 								","+'"'+registro.descripcion+'"'+","+'"'+registro.divisa+'"'+","+registro.monto_inicial+","+registro.cuenta_ahorro+")'>"+
@@ -676,6 +676,10 @@ if (document.getElementById("card_presu")) {
 	load_data_balance();
 	val_new_acco(idu);
 	load_data(idu);
+};
+
+if (document.getElementById("add_data_presu")) {
+	getPagina("consult_table_presu.php","add_data_presu");
 };
 
 if (document.getElementById("form_presu")){
