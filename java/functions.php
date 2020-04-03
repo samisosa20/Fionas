@@ -1321,9 +1321,11 @@ if (document.getElementById("table_move_acc")){
 
 if (document.getElementById("body_profile")){
 	var idu = <?php echo $id_user; ?>;
+	load_data_balance();
 	PostProfile("consult_profile.php?action=1", 1);
 	PostProfile("consult_profile.php?action=2", 2);
 	PostProfile("consult_profile.php?action=3", 3);
+	PostProfile("consult_profile.php?action=4", 4);
 	function PostProfile(strURLop, action) {
 		var xmlHttp;
 		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
@@ -1348,13 +1350,23 @@ if (document.getElementById("body_profile")){
 			document.getElementById("last_name_profile").value = str ;
 		}else if (action == 3){
 			document.getElementById("email_profile").value = str ;
+		}else if (action == 4){
+			document.getElementById("divisa").value = str ;
 		}
 	}
 	$("#save_profile").click(function(){
+		var fd = new FormData();
 		var name = document.getElementById("name_profile").value;
 		var last_name = document.getElementById("last_name_profile").value;
 		var passw1 = document.getElementById("pass_1").value;
 		var passw2 = document.getElementById("pass_2").value;
+		var divisa = document.getElementById("divisa").value;
+		var files = document.getElementById('photo_profile').files[0];
+		fd.append('file',files);
+		fd.append('name',name);
+		fd.append('last_name',last_name);
+		fd.append('divisa',divisa);
+		fd.append('passw',passw2);
 		if (name == "" || passw1 != passw2 || (passw1.length < 6 && passw1.length >0)) {
 			if (name == ""){
 				document.getElementById("name_profile").className = "form-control is-invalid";
@@ -1366,13 +1378,13 @@ if (document.getElementById("body_profile")){
 				document.getElementById("pass_1").className = "form-control is-invalid";
 			}
 		} else {
-			$.ajax('../conexions/edit_profile.php', {
+			$.ajax({
+				url: '../conexions/edit_profile.php',
 				type: 'POST',
-				data: {
-					name: name,
-					last_name: last_name,
-					passw: passw2
-				},
+				data: fd,
+				contentType: false,
+				cache: false,
+				processData: false,
 				success: function (data, status, xhr) {
 					console.log('status: ' + status + ', data: ' + data);
 					if (data == 200) {

@@ -19,38 +19,39 @@
             unlink($location); //remove the file
         }
         move_uploaded_file($_FILES["file"]["tmp_name"], $location);
-        $_SESSION["photo"] = $location;
-         if ($pass != ""){
+        if ($pass != ""){
             $update = "UPDATE fionadb.users
             SET name='$name', last_name='$lastname', password='$hash',
             divisa_prim='$divisa', photo='$location'
             WHERE id_user='$id_user';";
         } else{
             $update = "UPDATE fionadb.users
-            SET name='$name', last_name='$lastname', divisa_prim='$divisa',
+            SET name='$name', last_name='$lastname', divisa_prim='$divisa'
             , photo='$location'
             WHERE id_user='$id_user';";
-            $_SESSION["photo"] = $location;
+
         }
-    }
-    if ($pass != ""){
-        $update = "UPDATE fionadb.users
-        SET name='$name', last_name='$lastname', password='$hash',
-        divisa_prim='$divisa'
-        WHERE id_user='$id_user';";
-    } else{
-        $update = "UPDATE fionadb.users
-        SET name='$name', last_name='$lastname', divisa_prim='$divisa'
-        WHERE id_user='$id_user';";
+    } else {
+        if ($pass != ""){
+            $update = "UPDATE fionadb.users
+            SET name='$name', last_name='$lastname', password='$hash',
+            divisa_prim='$divisa'
+            WHERE id_user='$id_user';";
+        } else{
+            $update = "UPDATE fionadb.users
+            SET name='$name', last_name='$lastname', divisa_prim='$divisa'
+            WHERE id_user='$id_user';";
+        }
     }
     
     $save = mysqli_query($conn, $update);
     if(!$save){ 
-        echo 400;
+        echo $update;
     } else {
         echo 200;
         $_SESSION["name"] = $name;
         $_SESSION["last_name"] = $lastname;
+        $_SESSION["photo"] = $location;
     }
     mysqli_close($conn);
 ?>
