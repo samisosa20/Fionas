@@ -14,6 +14,7 @@
         $last_name = $result["last_name"];
         $id_user = $result["id_user"];
         $password = $result["password"];
+        $photo = $result["photo"];
         if (Password::verify($passwd , $password)) {
             echo 200;
             $_SESSION["user"]=$user;
@@ -21,6 +22,7 @@
             $_SESSION["name"]=$name;
             $_SESSION["divisa"]=$result["divisa_prim"];
             $_SESSION["last_name"]=$last_name;
+            $_SESSION["photo"]=$photo;
         } else {
             echo 450;
         }

@@ -4,7 +4,8 @@ $id_user = $_SESSION["Id_user"];
 $user = $_SESSION["user"];
 $name = $_SESSION["name"];
 $last_name = $_SESSION["last_name"];
-$divisa_prim = $_SESSION["divisa"]
+$divisa_prim = $_SESSION["divisa"];
+$photo = $_SESSION["photo"];
 ?>
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
@@ -184,8 +185,8 @@ $divisa_prim = $_SESSION["divisa"]
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                                    width="40">
+                                <?php echo "<img src='$photo' alt='user' class='rounded-circle'
+                                    width='40'>";?>
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                         class="text-dark"><?php echo $name; ?></span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
