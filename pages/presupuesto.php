@@ -94,6 +94,25 @@
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
+            <div id="ModalDeletPresu" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">Eliminar presupuesto</h4>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+						</div>
+						<div id="text_delete_presu" class="modal-body">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-light"
+								data-dismiss="modal">Cerrar</button>
+							<button type="button" id="btn_delete_presu" class="btn btn-danger">Eliminar</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->

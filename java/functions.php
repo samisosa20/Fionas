@@ -514,29 +514,23 @@ if (document.getElementById("ModalAccount")) {
 
 if (document.getElementById("card_presu")) {
 	var idu = <?php echo $id_user; ?>;
-	function delete_account(id, nombre){
-		document.getElementById("text_delete_acco").innerHTML=
-		"Esta segur@ de eliminar la cuenta: <strong>" + nombre + "</strong>, si lo hace, " +
+	function delete_presu(ano){
+		var idu = <?php echo $id_user; ?>;
+		document.getElementById("text_delete_presu").innerHTML=
+		"Esta segur@ de eliminar el presupuesto del año <strong>" + ano + "</strong>, si lo hace, " +
 		"toda la información sera borrada.";
-		$('#ModalDeletAcco').modal('show');
-		$('#btn_delete_account').click(function(){
+		$('#ModalDeletPresu').modal('show');
+		$('#btn_delete_presu').click(function(){
 			$.ajax({
-				url: '../conexions/delete_account', 
+				url: '../conexions/delete_presu', 
 				type: 'POST',
-				data: {id: id },
+				data: {ano: ano },
 				success: function(data){
-					$('#ModalDeletAcco').modal('hide');
-					var url = window.location.href;
-					var div = url.split("#");
-					var sub = div[1];
-					if (!sub){
-						sub = 0;
-					}
-					load_data(sub, idu);
-					load_data_balance();
+					$('#ModalDeletPresu').modal('hide');
+					load_data(idu);
 			},
 				error: function(data) {
-					$('#ModalDeletAcco').modal('hide');
+					$('#ModalDeletPresu').modal('hide');
 					alert("No se guardaron los cambios.");
 				}
 			});
@@ -627,7 +621,7 @@ if (document.getElementById("card_presu")) {
 								"<button class='btn btn-circle btn-primary mr-1' onclick='edit_account("+registro.id+","+'"'+registro.nombre+'"'+
 								","+'"'+registro.descripcion+'"'+","+'"'+registro.divisa+'"'+","+registro.monto_inicial+","+registro.cuenta_ahorro+")'>"+
 									"<i class='far fa-edit'></i></button>"+
-								"<button class='btn btn-circle btn-danger' onclick='delete_account("+registro.id+","+'"'+registro.nombre+'"'+")'>"+
+								"<button class='btn btn-circle btn-danger' onclick='delete_presu("+registro.year+")'>"+
 									"<i class='fas fa-trash-alt'></i></button>"+
 							"</div>"+
 						"</div>"+
