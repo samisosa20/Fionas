@@ -343,6 +343,10 @@ $('#add_trans_btn').click(function(){
         getPagina("consult_divisa.php?id="+this.value, "dash_trans_divisa");
     });
 });
+$('#screen_android').click(function(){
+        $("#ModalScreen").modal("hide");
+        $("#ModalScreenAndroid").modal("show");
+    });
 function signo(id, id2){
     var nro = document.getElementById(id).value;
     var signal = document.getElementById(id2);
