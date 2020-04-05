@@ -13,14 +13,14 @@ if (document.getElementById("pwd")){
 function log_in(){
     var user = document.getElementById("uname").value;
     var passwd = document.getElementById("pwd").value;
-    $.ajax('conexions/validar.php', {
+    $.ajax('conexions/validar', {
         type: 'POST',  // http method
         data: { user: user,
                 passwd: passwd },  // data to submit
         success: function (data, status, xhr) {
             //console.log('status: ' + status + ', data: ' + data);
             if (data == 200) {
-                window.location="/pages/dashboard.php";
+                window.location="/pages/dashboard";
             } else if (data == 400) {
                 document.getElementById("uname").className = "form-control is-invalid";
                 document.getElementById("mensaje").innerHTML = "<div class='alert alert-danger' role='alert'>" +
@@ -60,7 +60,7 @@ function sign_up(){
             document.getElementById("pass").className = "form-control is-invalid";
         }
     } else {
-        $.ajax('conexions/registrar.php', {
+        $.ajax('conexions/registrar', {
             type: 'POST',  // http method
             data: { name: name,
                 lastname: lastname,
