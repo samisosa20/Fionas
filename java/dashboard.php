@@ -344,9 +344,9 @@ $('#add_trans_btn').click(function(){
     });
 });
 $('#screen_android').click(function(){
-        $("#ModalScreen").modal("hide");
-        $("#ModalScreenAndroid").modal("show");
-    });
+    $("#ModalScreen").modal("hide");
+    $("#ModalScreenAndroid").modal("show");
+});
 function signo(id, id2){
     var nro = document.getElementById(id).value;
     var signal = document.getElementById(id2);
