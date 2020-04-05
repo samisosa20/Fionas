@@ -109,9 +109,14 @@
                                             <select class="custom-select mr-sm-2 custom-radius custom-shadow border-0"
                                             id="ano">
                                                 <option value="0" selected>Selecciona una opción</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2021">2021</option>
+                                                <?php 
+                                                $year_now = date(Y);
+                                                $year_last = $year_now - 1;
+                                                $year_future = $year_now + 1;
+                                                echo "
+                                                <option value='$year_last'>$year_last</option>
+                                                <option value='$year_now'>$year_now</option>
+                                                <option value='$year_future'>$year_future</option>"; ?>
                                             </select>
                                         </div>
                                     </div>
