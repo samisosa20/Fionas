@@ -125,6 +125,93 @@ function top_gasto(){
     }
 };
 
+function consolidado_year(){
+    include_once('../conexions/connect.php'); 
+    // Check connection
+    if ( mysqli_connect_errno() ) {
+        echo "Error: Ups! Hubo problemas con la conexión.  Favor de intentar nuevamente.";
+    } else {
+        $id_user = $_GET['idu'];
+        $divi = $_GET['divi'];
+        $strsql = "SELECT nombre, SUM(IF(valor > 0, valor, 0)) AS ingreso, 
+        SUM(IF(valor < 0, valor, 0)) AS egreso, 
+        SUM(valor) AS utilidad, a.divisa, a.id_user
+        FROM fionadb.movimientos AS a JOIN fionadb.cuentas AS b ON(a.id_user = b.id_user and a.cuenta = b.id) 
+        WHERE a.id_user = '$id_user' and a.divisa = '$divi' GROUP BY a.cuenta, a.divisa";
+        $rs = mysqli_query($conn, $strsql);
+        $total_rows = $rs->num_rows;
+        if ($total_rows > 0 ) {
+            while ($row = $rs->fetch_object()){
+                $data[] = $row;
+            }
+            echo(json_encode($data));
+        }
+    }
+};
+
+function move_year(){
+    include_once('../conexions/connect.php'); 
+    // Check connection
+    if ( mysqli_connect_errno() ) {
+        echo "Error: Ups! Hubo problemas con la conexión.  Favor de intentar nuevamente.";
+    } else {
+        $id_user = $_GET['idu'];
+        $divi =  $_GET['divi'];
+        $cuenta = $_GET['account'];
+        $sig = $_GET['sig'];
+        if ($sig == 1){
+            $compa = '>';
+        } else {
+            $compa = '<';
+        }
+        
+        $strsql = "SELECT b.nombre, SUM(valor) AS cantidad, a.divisa, a.id_user, MONTHNAME(fecha) AS mes
+        FROM fionadb.movimientos AS a JOIN fionadb.cuentas AS b ON(a.id_user = b.id_user and a.cuenta = b.id) 
+        WHERE a.id_user = '$id_user' and a.divisa = '$divi' and valor $compa 0
+        and b.nombre = '$cuenta' GROUP BY MONTH(fecha) ORDER BY MONTH(fecha) ASC";
+        $rs = mysqli_query($conn, $strsql);
+        $total_rows = $rs->num_rows;
+        if ($total_rows > 0 ) {
+            while ($row = $rs->fetch_object()){
+                $data[] = $row;
+            }
+            echo(json_encode($data));
+        }
+    }
+};
+
+function move_account_moth(){
+    include_once('../conexions/connect.php'); 
+    // Check connection
+    if ( mysqli_connect_errno() ) {
+        echo "Error: Ups! Hubo problemas con la conexión.  Favor de intentar nuevamente.";
+    } else {
+        $id_user = $_GET['idu'];
+        $divi =  $_GET['divi'];
+        $cuenta = $_GET['account'];
+        $mes = $_GET['mes'];
+        $sig = $_GET['sig'];
+        if ($sig == 1){
+            $compa = '>';
+        } else {
+            $compa = '<';
+        }
+        $strsql = "SELECT c.categoria, SUM(valor) AS cantidad, a.divisa, a.id_user, fecha
+        FROM fionadb.movimientos AS a JOIN fionadb.cuentas AS b ON(a.id_user = b.id_user and a.cuenta = b.id) 
+        JOIN fionadb.categorias AS c ON (a.id_user = c.id_user and a.categoria =c.id) WHERE a.id_user = '$id_user' 
+        and a.divisa = '$divi' and valor $compa 0 and MONTHNAME(fecha) = '$mes'
+        and b.nombre = '$cuenta' GROUP BY a.categoria ORDER BY fecha AS";
+        $rs = mysqli_query($conn, $strsql);
+        $total_rows = $rs->num_rows;
+        if ($total_rows > 0 ) {
+            while ($row = $rs->fetch_object()){
+                $data[] = $row;
+            }
+            echo(json_encode($data));
+        }
+    }
+};
+
 $action = $_GET['action'];
 switch($action) {
     case 1: 
@@ -141,6 +228,15 @@ switch($action) {
         break;
     case 5:
         top_gasto();
+        break;
+    case 6:
+        consolidado_year();
+        break;
+    case 7:
+        move_year();
+        break;
+    case 8:
+        move_account_moth();
         break;
 }
 ?>

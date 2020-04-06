@@ -764,4 +764,130 @@ function val_new_user(idu){
             });   
         }
     }); 
+};
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2
+});
+
+function showactivity(id){
+    document.getElementById("bodyActivity").innerHTML = "";
+    var divisa_primary = document.getElementById("select_divisa").value;
+    $.ajax({
+        type: "GET",
+        url: '../json/reportes?action=6&idu='+ idu+'&divi='+divisa_primary, 
+        dataType: "json",
+        success: function(data){
+            //console.log(data);
+            if (id == 1){
+                $.each(data,function(key, registro) {
+                    var catego = '"'+registro.nombre+'"'
+                    $("#bodyActivity").append("<div onclick='showactivitylvl("+id+","+catego+")' class='card border-botton border-right border-left'>"+
+                            "<h4 class='card-title col-md-12 text-muted mt-2'>"+
+                            registro.nombre+"</h3>"+
+                            "<h6 class='card-title ml-3 row col-md-12 text-muted'>"+
+                            "<p class='text-success'>"+formatter.format(registro.ingreso)+"</p></h6>"+
+                    "</div>");
+                });
+            } else if (id == 2){
+                $.each(data,function(key, registro) {
+                    var catego = '"'+registro.nombre+'"'
+                    $("#bodyActivity").append("<div onclick='showactivitylvl("+id+","+catego+")' class='card border-botton border-right border-left'>"+
+                            "<h4 class='card-title col-md-10 col-lg-10 col-xl-10 text-muted mt-2'>"+
+                            registro.nombre+"</h3>"+
+                            "<h6 class='card-title ml-3 row col-md-12 col-lg-12 col-xl-12 text-muted'>"+
+                            "<p class='text-danger'>"+formatter.format(registro.egreso)+"</p></h6>"+
+                    "</div>");
+                });
+            }
+        },
+        error: function (data) {
+        }
+    });
+    $("#ModalActivity").modal("show");
+}
+function showactivitylvl(id, nombre){
+    $("#ModalActivity").modal("hide");
+    document.getElementById("bodyActivityLvl").innerHTML = "";
+    var divisa_primary = document.getElementById("select_divisa").value;
+    $.ajax({
+        type: "GET",
+        url: '../json/reportes?action=7&idu='+ idu+'&divi='+divisa_primary+
+        '&account='+nombre+'&sig='+id, 
+        dataType: "json",
+        success: function(data){
+            //console.log(data);
+            if (id == 1){
+                $.each(data,function(key, registro) {
+                    var catego = '"'+registro.nombre+'"';
+                    var mes = '"'+registro.mes+'"';
+                    $("#bodyActivityLvl").append("<div onclick='showactivityMonth("+id+","+catego+","+mes+")' class='card border-botton border-right border-left'>"+
+                            "<h4 class='card-title col-md-12 text-muted mt-2'>"+
+                            registro.mes+"-"+registro.nombre+"</h3>"+
+                            "<h6 class='card-title ml-3 row col-md-12 text-muted'>"+
+                            "<p class='text-success'>"+formatter.format(registro.cantidad)+"</p></h6>"+
+                    "</div>");
+                });
+            } else if (id == 2){
+                $.each(data,function(key, registro) {
+                    var catego = '"'+registro.nombre+'"';
+                    var mes = '"'+registro.mes+'"';
+                    $("#bodyActivityLvl").append("<div onclick='showactivityMonth("+id+","+catego+","+mes+")' class='card border-botton border-right border-left'>"+
+                            "<h4 class='card-title col-md-10 col-lg-10 col-xl-10 text-muted mt-2'>"+
+                            registro.mes+"-"+registro.nombre+"</h3>"+
+                            "<h6 class='card-title ml-3 row col-md-12 col-lg-12 col-xl-12 text-muted'>"+
+                            "<p class='text-danger'>"+formatter.format(registro.cantidad)+"</p></h6>"+
+                    "</div>");
+                });
+            }
+        },
+        error: function (data) {
+        }
+    });
+    $("#ModalActivityLvl").modal("show");
+    $("#btn_back_lvl").click(function(){
+        $("#ModalActivityLvl").modal("hide");
+        $("#ModalActivity").modal("show");
+    });
+}
+function showactivityMonth(id, nombre, mes){
+    $("#ModalActivityLvl").modal("hide");
+    document.getElementById("bodyActivityLvl").innerHTML = "";
+    var divisa_primary = document.getElementById("select_divisa").value;
+    $.ajax({
+        type: "GET",
+        url: '../json/reportes?action=8&idu='+ idu+'&divi='+divisa_primary+
+        '&account='+nombre+'&mes='+mes+'&sig='+id, 
+        dataType: "json",
+        success: function(data){
+            //console.log(data);
+            if (id == 1){
+                $.each(data,function(key, registro) {
+                    $("#bodyActivityLvl").append("<div class='card border-botton border-right border-left'>"+
+                            "<h4 class='card-title col-md-12 text-muted mt-2'>"+
+                            registro.categoria+"</h3>"+
+                            "<h6 class='card-title ml-3 row col-md-12 text-muted'>"+
+                            "<p class='text-success'>"+formatter.format(registro.cantidad)+"</p></h6>"+
+                    "</div>");
+                });
+            } else if (id == 2){
+                $.each(data,function(key, registro) {
+                    $("#bodyActivityLvl").append("<div class='card border-botton border-right border-left'>"+
+                            "<h4 class='card-title col-md-10 col-lg-10 col-xl-10 text-muted mt-2'>"+
+                            registro.categoria+"</h3>"+
+                            "<h6 class='card-title ml-3 row col-md-12 col-lg-12 col-xl-12 text-muted'>"+
+                            "<p class='text-danger'>"+formatter.format(registro.cantidad)+"</p></h6>"+
+                    "</div>");
+                });
+            }
+        },
+        error: function (data) {
+        }
+    });
+    $("#ModalActivityMonth").modal("show");
+    $("#btn_back_moth").click(function(){
+        $("#ModalActivityMonth").modal("hide");
+        $("#ModalActivityLvl").modal("show");
+    });
 }

@@ -97,7 +97,7 @@
                 <!-- Start First Cards -->
                 <!-- *************************************************************** -->
                 <div class="card-group">
-                    <div class="card border-right col-sm-12">
+                    <div onclick="showactivity(1)" class="card border-right col-sm-12">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card border-right">
+                    <div onclick="showactivity(2)" class="card border-right">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
@@ -703,6 +703,63 @@
                     </div>
                 </div>
             </div>
+            <div id="ModalActivity" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Actividades por cuenta</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div id="bodyActivity" class="modal-body">
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light"
+                                data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <div id="ModalActivityLvl" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Movimientos por mes</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div id="bodyActivityLvl" class="modal-body">
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"
+                                id="btn_back_lvl">Atras</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <div id="ModalActivityMonth" class="modal fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Movimientos diarios</h4>
+                            <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×</button>
+                        </div>
+                        <div id="bodyActivityLvl" class="modal-body">
+                        
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary"
+                                id="btn_back_moth">Atras</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
