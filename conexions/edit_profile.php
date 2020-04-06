@@ -51,7 +51,10 @@
         echo 200;
         $_SESSION["name"] = $name;
         $_SESSION["last_name"] = $lastname;
-        $_SESSION["photo"] = $location;
+        if($_FILES["file"]["name"] != '')
+        {
+            $_SESSION["photo"] = $location;
+        }
     }
     mysqli_close($conn);
 ?>
