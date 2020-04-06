@@ -691,7 +691,7 @@
                             <p>Para eso darás clic en categorías en la barra de navegación ubicada al lado izquierdo
                             de la pagina o <i class="fas fa-bars"></i> ubicado en la parte superior lado izquierdo.</p>
                             <p><strong>Ej: </strong> Si posees gastos que provenga de un vehiculo puedes crear una 
-                            categoria llama vehiculo.</p>
+                            categoria llamada vehiculo.</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn waves-effect waves-light btn-rounded btn-light"
