@@ -7,8 +7,8 @@
     $hash = Password::hash($pass);
     $id_user=generateRandomString(5);
     $insert = "INSERT INTO fionadb.users
-    (name, last_name, email, password, id_user)
-    VALUES('$name', '$lastname', '$email', '$hash', '$id_user');      
+    (name, last_name, email, password, divisa_prim, photo, id_user)
+    VALUES('$name', '$lastname', '$email', '$hash', 'COP','../assets/images/users/1.jpg','$id_user');      
     ";
     $insert_cat = "INSERT INTO fionadb.categorias
     (categoria, sub_categoria, grupo, descripcion, id_user)
