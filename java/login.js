@@ -106,3 +106,15 @@ function forgot_pass(){
         });
     }
 };
+$("#see").click(function(){
+    See_pass();
+});
+function See_pass(){
+    if(document.getElementById("pwd").type == "text"){
+        document.getElementById("pwd").type = "password";
+        document.getElementById("see").className = "fas fa-eye-slash mt-2 ml-3";
+    } else {
+        document.getElementById("pwd").type = "text";
+        document.getElementById("see").className = "fas fa-eye mt-2 ml-3";
+    }
+}
