@@ -58,7 +58,7 @@ class Email  extends PHPMailer{
 	
    $contenido_html =  "<div>
    <img data-imagetype='External' 
-   src='http://fiona.byethost11.com/assets/images/logo-icon.png/>
+   src='http://fiona.byethost11.com/assets/images/logo-icon.png'>
    <p>
       Señor(a).<br>
       $contenido_mess<strong>$consetiket</strong>.<br>
