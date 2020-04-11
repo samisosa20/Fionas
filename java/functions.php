@@ -1437,6 +1437,10 @@ $('#screen_android').click(function(){
     $("#ModalScreen").modal("hide");
     $("#ModalScreenAndroid").modal("show");
 });
+$('#screen_iphone').click(function(){
+    $("#ModalScreen").modal("hide");
+    $("#ModalScreenIOS").modal("show");
+});
 function val_session(idu){
     if(idu == ""){
         window.location = "/";

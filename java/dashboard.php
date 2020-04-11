@@ -347,6 +347,10 @@ $('#screen_android').click(function(){
     $("#ModalScreen").modal("hide");
     $("#ModalScreenAndroid").modal("show");
 });
+$('#screen_iphone').click(function(){
+    $("#ModalScreen").modal("hide");
+    $("#ModalScreenIOS").modal("show");
+});
 function signo(id, id2){
     var nro = document.getElementById(id).value;
     var signal = document.getElementById(id2);
