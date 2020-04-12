@@ -6,7 +6,11 @@ $insert = "SELECT b.categoria, FORMAT(a.valor,2) AS valor, a.divisa, a.fecha, a.
 AS a LEFT JOIN fionadb.categorias AS b ON (b.id = a.categoria and a.id_user = b.id_user) LEFT JOIN 
 fionadb.cuentas AS c ON (a.id_user = c.id_user and a.cuenta = c.id)
 WHERE a.id_user='$id_user'
+<<<<<<< HEAD
 ORDER BY a.fecha DESC LIMIT 4";
+=======
+ORDER BY a.fecha DESC LIMIT 3";
+>>>>>>> e98bc580926e1c3fc0553be5bfff38943a779fe6
 $ejecutar =mysqli_query( $conn,$insert);
 while ($lista = mysqli_fetch_array($ejecutar)){
     $categoria = $lista["categoria"];
@@ -43,6 +47,7 @@ while ($lista = mysqli_fetch_array($ejecutar)){
             <span class='font-weight-light font-14 text-muted'>$fecha</span>
         </div>
     </div>";
+<<<<<<< HEAD
     } else if ((int)$valor > 0 && $categoria == "Transferencia"){
         echo "<div class='d-flex align-items-start border-left-line pb-3'>
         <div>
@@ -58,6 +63,8 @@ while ($lista = mysqli_fetch_array($ejecutar)){
             <span class='font-weight-light font-14 text-muted'>$fecha</span>
         </div>
     </div>";
+=======
+>>>>>>> e98bc580926e1c3fc0553be5bfff38943a779fe6
     }
 }
 mysqli_close($conn);
