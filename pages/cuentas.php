@@ -46,11 +46,7 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-<<<<<<< HEAD
                     <div class="col-12 align-self-center">
-=======
-                    <div class="col-7 align-self-center">
->>>>>>> e98bc580926e1c3fc0553be5bfff38943a779fe6
                         <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">LISTA DE CUENTAS</h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">

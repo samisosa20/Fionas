@@ -293,25 +293,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">Actividades Recientes</h4>
                                 <div id="activity_current" class="mt-4 activity">
-<<<<<<< HEAD
                                     
-=======
-                                    <div class="d-flex align-items-start border-left-line">
-                                        <div>
-                                            <a href="javascript:void(0)" class="btn btn-cyan btn-circle mb-2 btn-item">
-                                                <i class=" fas fa-exchange-alt"></i>
-                                            </a>
-                                        </div>
-                                        <div class="ml-3 mt-2">
-                                            <h5 class="text-dark font-weight-medium mb-2">Notification Pending Order!
-                                            </h5>
-                                            <p class="font-14 mb-2 text-muted">One Pending order from Ryne <br> Doe</p>
-                                            <span class="font-weight-light font-14 mb-1 d-block text-muted">2 Hours
-                                                Ago</span>
-                                            <a href="javascript:void(0)" class="font-14 border-bottom pb-1 border-info">Load More</a>
-                                        </div>
-                                    </div>
->>>>>>> e98bc580926e1c3fc0553be5bfff38943a779fe6
                                 </div>
                             </div>
                         </div>
