@@ -159,6 +159,26 @@ function new_user(){
         }
     }
 };
+
+function mensajes(){
+    include_once('../conexions/connect.php'); 
+    // Check connection
+    if ( mysqli_connect_errno() ) {
+        echo "Error: Ups! Hubo problemas con la conexión.  Favor de intentar nuevamente.";
+    } else {
+        $id_user = $_GET['idu'];
+        $id = $_GET["id"];
+        $strsql = "SELECT * FROM fionadb.notification WHERE id_user='$id_user' and id = $id ORDER BY fecha DESC";
+        $rs = mysqli_query($conn, $strsql);
+        $total_rows = $rs->num_rows;
+        if ($total_rows > 0 ) {
+            while ($row = $rs->fetch_object()){
+                $data[] = $row;
+            }
+            echo(json_encode($data));
+        }
+    }
+};
 $action = $_GET['action'];
 switch($action) {
     case 1: 
@@ -181,6 +201,9 @@ switch($action) {
         break;
     case 7:
         new_user();
+        break;
+    case 8:
+        mensajes();
         break;
 }
 ?>

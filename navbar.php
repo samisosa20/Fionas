@@ -91,17 +91,16 @@ $photo = $_SESSION["photo"];
                                 id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">5</span>
+                                <span id="nro_message" class="badge badge-primary notify-no rounded-circle"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                 <ul class="list-style-none">
-                                    <li>
-                                        <div class="message-center notifications position-relative">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                                class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                        data-feather="airplay" class="text-white"></i></div>
+                                    <li id="list_mensajes">
+                                        <!--div class="message-center notifications position-relative">
+                                            <div href="javascript:void(0)"
+                                                class="message-item d-flex align-items-center border-bottom">
+                                                <button class="btn btn-danger btn-circle"><i
+                                                        class="text-white"></i></button>
                                                 <div class="w-75 d-inline-block v-middle pl-2">
                                                     <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
                                                     <span class="font-12 text-nowrap d-block text-muted">Just see
@@ -109,8 +108,7 @@ $photo = $_SESSION["photo"];
                                                         admin!</span>
                                                     <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
                                                 </div>
-                                            </a>
-                                            <!-- Message -->
+                                            </div>
                                             <a href="javascript:void(0)"
                                                 class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <span class="btn btn-success text-white rounded-circle btn-circle"><i
@@ -123,7 +121,6 @@ $photo = $_SESSION["photo"];
                                                     <span class="font-12 text-nowrap d-block text-muted">9:10 AM</span>
                                                 </div>
                                             </a>
-                                            <!-- Message -->
                                             <a href="javascript:void(0)"
                                                 class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <span class="btn btn-info rounded-circle btn-circle"><i
@@ -137,7 +134,6 @@ $photo = $_SESSION["photo"];
                                                     <span class="font-12 text-nowrap d-block text-muted">9:08 AM</span>
                                                 </div>
                                             </a>
-                                            <!-- Message -->
                                             <a href="javascript:void(0)"
                                                 class="message-item d-flex align-items-center border-bottom px-3 py-2">
                                                 <span class="btn btn-primary rounded-circle btn-circle"><i
@@ -149,14 +145,14 @@ $photo = $_SESSION["photo"];
                                                     <span class="font-12 text-nowrap d-block text-muted">9:02 AM</span>
                                                 </div>
                                             </a>
-                                        </div>
+                                        </div>-->
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
                                             <strong>Check all notifications</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
-                                    </li>
+                                    </li>-->
                                 </ul>
                             </div>
                         </li>
